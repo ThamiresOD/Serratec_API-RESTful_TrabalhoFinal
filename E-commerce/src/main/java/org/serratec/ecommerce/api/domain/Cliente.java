@@ -3,8 +3,10 @@ package org.serratec.ecommerce.api.domain;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,39 +23,37 @@ import io.swagger.annotations.ApiModelProperty;
 public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@ApiModelProperty(value = "Id do cliente")
+	@ApiModelProperty(value = "cli_cd_id")
 	@Column(name = "idCliente")
 	private Long id;
 	
 	@NotBlank(message = "Preencha o nome completo")
 	@ApiModelProperty(value = "Nome completo do cliente")
-	@Column(name = "nomeCompleto", length = 50, nullable = false)
+	@Column(name = "cli_tx_nome_completo", length = 50, nullable = false)
 	private String nomeCompleto;
 	
 	@NotBlank(message = "Preencha o email")
 	@ApiModelProperty(value = "Email do cliente")
-	@Column(name = "email", length = 80, nullable = false, unique = true)
+	@Column(name = "cli_tx_email", length = 80, nullable = false, unique = true)
 	private String email;
 	
 	@NotBlank(message = "Preencha o cpf")
 	@ApiModelProperty(value = "CPF do cliente")
-	@Column(name = "cpf", length = 11, nullable = false, unique = true)
+	@Column(name = "cli_tx_cpf", length = 11, nullable = false, unique = true)
 	private String cpf;
 	
 	@NotBlank(message = "Preencha o telefone")
 	@ApiModelProperty(value = "Telefone do cliente")
-	@Column(name = "telefone", length = 40, nullable = false)
+	@Column(name = "cli_tx_telefone", length = 40, nullable = false)
 	private String telefone;
 	
 	@NotNull
 	@ApiModelProperty(value = "Data de nascimento do cliente")
-	@Column(name = "dataNascimento")
+	@Column(name = "cli_dt_data_nascimento")
 	private LocalDate dataNascimento;
 	
-	@OneToOne
-//	@OneToOne(fetch= FetchType.LAZY) // Retorna todos os dados de uma lista e depois faz um get para cada item selecionado (Performance)
-//  @OneToOne(fetch= FetchType.EAGER) // Retorna toda a informação solicitada com um JOIN!
-	@JoinColumn(name = "idEndereco", nullable = false)
+	@OneToOne(fetch= FetchType.LAZY, cascade = CascadeType.REMOVE) 
+	@JoinColumn(name = "end_cd_id int,", nullable = false)
 	private Endereco endereco;
 
 	public Cliente() {

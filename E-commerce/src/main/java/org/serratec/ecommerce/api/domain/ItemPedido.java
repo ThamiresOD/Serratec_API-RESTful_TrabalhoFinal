@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,40 +21,40 @@ public class ItemPedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@ApiModelProperty(value = "Id do item pedido")
-	@Column(name = "idItemPedido")
+	@Column(name = "pdt_cd_id")
 	private Long id;
 	
 	@NotNull
 	@ApiModelProperty(value = "Quantidade do item pedido")
-	@Column(name = "quantidade", nullable = false)
+	@Column(name = "pdt_int_quantidade", nullable = false)
 	private Integer quantidade;
 	
 	@NotNull
 	@ApiModelProperty(value = "Preco de venda do item pedido")
-	@Column(name = "precoVenda", nullable = false)
+	@Column(name = "pdt_nm_preco_venda", nullable = false)
 	private Double precoVenda;
 	
 	@NotNull
 	@ApiModelProperty(value = "Percentual do desconto do item pedido")
-	@Column(name = "percentualDesconto", nullable = false)
+	@Column(name = "pdt_nm_percentual_desconto", nullable = false)
 	private Double percentualDesconto;
 	
 	@NotNull
 	@ApiModelProperty(value = "Valor bruto do produto")
-	@Column(name = "valorBruto", nullable = false)
+	@Column(name = "pdt_nm_valor_bruto", nullable = false)
 	private Double valorBruto;
 	
 	@NotNull
 	@ApiModelProperty(value = "Valor liquido do produto")
-	@Column(name = "valorLiquido", nullable = false)
+	@Column(name = "pdt_nm_valor_liquido", nullable = false)
 	private Double valorLiquido;
 	
-	@ManyToOne
-	@JoinColumn(name = "idProduto", nullable = false)
+	@ManyToOne(fetch= FetchType.EAGER)
+	@JoinColumn(name = "prd_cd_id", nullable = false)
 	private Produto produto;
 	
-	@ManyToOne
-	@JoinColumn(name = "idPedido", nullable = false)
+	@ManyToOne(fetch= FetchType.EAGER)
+	@JoinColumn(name = "ped_cd_id", nullable = false)
 	private Pedido pedido;
 
 	public ItemPedido() {
