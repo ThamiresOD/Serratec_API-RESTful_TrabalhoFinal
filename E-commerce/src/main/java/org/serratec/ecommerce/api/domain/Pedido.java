@@ -30,14 +30,12 @@ public class Pedido {
 	@Column(name = "dataPedido", nullable = false)
 	private LocalDate dataPedido;
 	
-//	@NotNull
 	@ApiModelProperty(value = "Data de entrega do pedido")
-	@Column(name = "dataEntrega"/*, nullable = false*/)
+	@Column(name = "dataEntrega")
 	private LocalDate dataEntrega;
 	
-//	@NotNull
 	@ApiModelProperty(value = "Data de envio do pedido")
-	@Column(name = "dataEnvio"/*, nullable = false*/)
+	@Column(name = "dataEnvio")
 	private LocalDate dataEnvio;
 	
 	@NotBlank(message = "Preencha o status")

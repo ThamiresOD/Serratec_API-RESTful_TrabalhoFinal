@@ -30,18 +30,16 @@ public class Produto {
 	@Column(name = "nomeProduto", length = 30, nullable = false, unique = true)
 	private String nomeProduto;
 	
-//	@NotBlank(message = "Preencha a descricao")
 	@ApiModelProperty(value = "Descricao do produto")
-	@Column(name = "descricaoProduto", length = 200/*, nullable = false*/)
+	@Column(name = "descricaoProduto", length = 200)
 	private String descricaoProduto;
 	
 	@ApiModelProperty(value = "Quantidade em estoque do produto")
 	@Column(name = "quantidadeEstoqueProduto", nullable = true)
 	private Integer quantidadeEstoqueProduto;
 	
-//	@NotNull
 	@ApiModelProperty(value = "Data de cadastro do produto")
-	@Column(name = "dataCadastroProduto"/*, nullable = false*/)
+	@Column(name = "dataCadastroProduto")
 	private LocalDate dataCadastroProduto;
 	
 	@NotNull
