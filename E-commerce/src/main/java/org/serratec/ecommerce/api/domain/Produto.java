@@ -22,47 +22,47 @@ public class Produto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@ApiModelProperty(value = "Id do produto")
-	@Column(name = "idProduto")
+	@Column(name = "prd_cd_id")
 	private Long id;
 	
 	@NotBlank(message = "Preencha o nome")
 	@ApiModelProperty(value = "Nome do produto")
-	@Column(name = "nomeProduto", length = 30, nullable = false, unique = true)
+	@Column(name = "prd_tx_nome", length = 30, nullable = false, unique = true)
 	private String nomeProduto;
 	
 	@ApiModelProperty(value = "Descricao do produto")
-	@Column(name = "descricaoProduto", length = 200)
+	@Column(name = "prd_tx_descricao", length = 200)
 	private String descricaoProduto;
 	
 	@ApiModelProperty(value = "Quantidade em estoque do produto")
-	@Column(name = "quantidadeEstoqueProduto", nullable = true)
+	@Column(name = "prd_int_quantidade_estoque", nullable = true)
 	private Integer quantidadeEstoqueProduto;
 	
 	@ApiModelProperty(value = "Data de cadastro do produto")
-	@Column(name = "dataCadastroProduto")
+	@Column(name = "prd_dt_data_cadastro")
 	private LocalDate dataCadastroProduto;
 	
 	@NotNull
 	@ApiModelProperty(value = "Valor unitario do produto")
-	@Column(name = "valorUitarioProduto", nullable = false)
+	@Column(name = "prd_nm_valor_unitario", nullable = false)
 	private Double valorUnitarioProduto;
 	
-// IMAGEM
-	//
-	//
-	//
+	@NotNull
+	@ApiModelProperty(value = "Imagem do produto")
+	@Column(name = "imagem_produto", nullable = false)
+	private byte[] imagemProduto;
 	
 	@ManyToOne
-	@JoinColumn(name = "idCategoria", nullable = false)
+	@JoinColumn(name = "cat_cd_id", nullable = false)
 	private Categoria categoria;
 
 	public Produto() {
 		super();
 	}
 
-	public Produto(Long id, @NotBlank(message = "Preencha o nome") String nomeProduto,
-			@NotBlank(message = "Preencha a descricao") String descricaoProduto, Integer quantidadeEstoqueProduto,
-			@NotNull LocalDate dataCadastroProduto, @NotNull Double valorUnitarioProduto, Categoria categoria) {
+	public Produto(Long id, @NotBlank(message = "Preencha o nome") String nomeProduto, String descricaoProduto,
+			Integer quantidadeEstoqueProduto, LocalDate dataCadastroProduto, @NotNull Double valorUnitarioProduto,
+			@NotNull byte[] imagemProduto, Categoria categoria) {
 		super();
 		this.id = id;
 		this.nomeProduto = nomeProduto;
@@ -70,6 +70,7 @@ public class Produto {
 		this.quantidadeEstoqueProduto = quantidadeEstoqueProduto;
 		this.dataCadastroProduto = dataCadastroProduto;
 		this.valorUnitarioProduto = valorUnitarioProduto;
+		this.imagemProduto = imagemProduto;
 		this.categoria = categoria;
 	}
 
@@ -121,6 +122,14 @@ public class Produto {
 		this.valorUnitarioProduto = valorUnitarioProduto;
 	}
 
+	public byte[] getImagemProduto() {
+		return imagemProduto;
+	}
+
+	public void setImagemProduto(byte[] imagemProduto) {
+		this.imagemProduto = imagemProduto;
+	}
+
 	public Categoria getCategoria() {
 		return categoria;
 	}
@@ -145,7 +154,5 @@ public class Produto {
 		Produto other = (Produto) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
 	
 }

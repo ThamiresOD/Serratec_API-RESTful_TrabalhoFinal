@@ -19,41 +19,41 @@ public class Endereco {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@ApiModelProperty(value = "ID do endereco")
-	@Column(name = "idEndereco")
+	@Column(name = "end_cd_id")
 	private Long id;
 	
 	@NotBlank(message = "Preencha o CEP")
 	@ApiModelProperty(value = "CEP do endereço")
-	@Column(name = "cep", length = 8, nullable = false)
+	@Column(name = "end_tx_cep", length = 8, nullable = false)
 	private String cep;
 	
 	@NotBlank(message = "Preencha a rua")
 	@ApiModelProperty(value = "Rua do endereço")
-	@Column(name = "rua", length = 80, nullable = false)
+	@Column(name = "end_tx_rua", length = 80, nullable = false)
 	private String rua;
 	
 	@NotBlank(message = "Preencha o bairro")
 	@ApiModelProperty(value = "Bairro do endereço")
-	@Column(name = "bairro", length = 50, nullable = false)
+	@Column(name = "end_tx_bairro", length = 50, nullable = false)
 	private String bairro;	
 	
 	@NotBlank(message = "Preencha a cidade")
 	@ApiModelProperty(value = "Cidade do endereço")
-	@Column(name = "cidade", length = 80, nullable = false)
+	@Column(name = "end_tx_cidade", length = 80, nullable = false)
 	private String cidade;
 	
 	@NotBlank(message = "Preencha o numero")
 	@ApiModelProperty(value = "Numero do endereço")
-	@Column(name = "numero", length = 20, nullable = false)
+	@Column(name = "end_tx_numero", length = 20, nullable = false)
 	private String numero;
 	
 	@ApiModelProperty(value = "Complemento do endereço")
-	@Column(name = "complemento", length = 80, nullable = true)
+	@Column(name = "end_tx_complemento", length = 80, nullable = true)
 	private String complemento;
 	
 	@NotBlank(message = "Preencha a UF")
 	@ApiModelProperty(value = "UF do endereço")
-	@Column(name = "uf", length = 2, nullable = false)
+	@Column(name = "end_tx_uf", length = 2, nullable = false)
 	private String uf;
 
 	public Endereco() {
