@@ -1,21 +1,22 @@
 {
 	"folders": {},
 	"connections": {
-		"postgres-jdbc-183f7ee9dca-79a4fb8e2c7b5c2e": {
+		"postgres-jdbc-183f7011426-13f7de24e56acfd1": {
 			"provider": "postgresql",
 			"driver": "postgres-jdbc",
-			"name": "postgres",
+			"name": "ecommerce",
 			"save-password": true,
 			"read-only": false,
 			"configuration": {
 				"host": "localhost",
 				"port": "5432",
-				"database": "postgres",
-				"url": "jdbc:postgresql://localhost:5432/postgres",
+				"database": "ecommerce",
+				"url": "jdbc:postgresql://localhost:5432/ecommerce",
 				"configurationType": "MANUAL",
+				"home": "postgresql-x64-14",
 				"type": "dev",
 				"provider-properties": {
-					"@dbeaver-show-non-default-db@": "true",
+					"@dbeaver-show-non-default-db@": "false",
 					"@dbeaver-show-template-db@": "false",
 					"@dbeaver-show-unavailable-db@": "false",
 					"show-database-statistics": "false",
