@@ -1,1 +1,0 @@
-{"resources":{"src/main/resources/db/migration/V04__cria_tabelas_pedido.sql":{"default-datasource":"postgres-jdbc-183f81d2964-29816ee9a2aecb26","default-catalog":"ecommerce","default-schema":"public"}}}
