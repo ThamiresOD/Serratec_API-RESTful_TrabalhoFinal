@@ -49,7 +49,7 @@ public class Produto {
 	
 	@NotNull
 	@ApiModelProperty(value = "Imagem do produto")
-	@Column(name = "imagem_produto", nullable = false)
+	@Column(name = "prd_imagem_produto", nullable = false)
 	private byte[] imagemProduto;
 	
 	@ManyToOne
