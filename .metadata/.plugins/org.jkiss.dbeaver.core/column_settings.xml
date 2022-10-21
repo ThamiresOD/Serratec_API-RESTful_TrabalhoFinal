@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<items>
+	<item id="NodeList/PostgreTable">
+		<column name="Nome da tabela" visible="true" order="0" width="100"/>
+		<column name="ID do objeto" visible="true" order="1" width="100"/>
+		<column name="Propietário" visible="true" order="2" width="100"/>
+		<column name="Espaço da tabelas" visible="true" order="3" width="107"/>
+		<column name="Estimativa de contagem de linhas" visible="true" order="4" width="191"/>
+		<column name="Has Row-Level Security" visible="true" order="5" width="137"/>
+		<column name="Partições" visible="true" order="6" width="100"/>
+		<column name="Partição por" visible="true" order="7" width="100"/>
+		<column name="Opções extras" visible="true" order="8" width="100"/>
+		<column name="Comentário" visible="true" order="9" width="100"/>
+	</item>
+	<item id="NodeList/PostgreTableColumn">
+		<column name="Nome da coluna" visible="true" order="0" width="107"/>
+		<column name="#" visible="true" order="1" width="100"/>
+		<column name="Tipo de dados" visible="true" order="2" width="100"/>
+		<column name="Identidade" visible="true" order="3" width="100"/>
+		<column name="Coleção" visible="true" order="4" width="100"/>
+		<column name="Não Nulo" visible="true" order="5" width="100"/>
+		<column name="Padrão" visible="true" order="6" width="100"/>
+		<column name="Comentário" visible="true" order="7" width="100"/>
+	</item>
+	<item id="NodeList/PostgreTableRegular">
+		<column name="Nome da tabela" visible="true" order="0" width="147"/>
+		<column name="ID do objeto" visible="true" order="1" width="100"/>
+		<column name="Propietário" visible="true" order="2" width="100"/>
+		<column name="Espaço da tabelas" visible="true" order="3" width="107"/>
+		<column name="Estimativa de contagem de linhas" visible="true" order="4" width="191"/>
+		<column name="Has Row-Level Security" visible="true" order="5" width="137"/>
+		<column name="Partições" visible="true" order="6" width="100"/>
+		<column name="Partição por" visible="true" order="7" width="100"/>
+		<column name="Opções extras" visible="true" order="8" width="100"/>
+		<column name="Comentário" visible="true" order="9" width="100"/>
+	</item>
+</items>
