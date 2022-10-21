@@ -6,4 +6,4 @@
 .settings/
 .springBeans/
 .sts4-cache
-
+application.properties
