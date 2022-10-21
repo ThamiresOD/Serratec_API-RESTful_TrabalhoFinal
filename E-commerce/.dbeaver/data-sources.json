@@ -1,7 +1,7 @@
 {
 	"folders": {},
 	"connections": {
-		"postgres-jdbc-183f7011426-13f7de24e56acfd1": {
+		"postgres-jdbc-183f81d2964-29816ee9a2aecb26": {
 			"provider": "postgresql",
 			"driver": "postgres-jdbc",
 			"name": "ecommerce",
