@@ -17,4 +17,8 @@ public class ProdutoService {
 		return prodRepo.findAll();
 	}
 	
+	public Produto inserir(Produto produto) {
+		return prodRepo.save(produto);
+	}
+	
 }
