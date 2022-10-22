@@ -5,11 +5,13 @@ import java.util.List;
 
 import org.serratec.ecommerce.api.domain.Cliente;
 import org.serratec.ecommerce.api.domain.dto.ClienteInserirDTO;
+import org.serratec.ecommerce.api.exception.UniqueCpfException;
 import org.serratec.ecommerce.api.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +42,20 @@ public class ClienteController {
 		return ResponseEntity.ok(clienteService.findAll());
 	}
 	
+	
+	@GetMapping("/{cpf}")
+	@ApiOperation(value="Encontra cliente por cpf")
+    @ApiResponses(value= {
+    @ApiResponse(code=200, message="Retorna a lista de clientes"),
+    @ApiResponse(code=401, message="Erro de autenticação"),
+    @ApiResponse(code=403, message="Não há permissão para acessar o recurso"),
+    @ApiResponse(code=404, message="Recurso não encontrado"),
+    @ApiResponse(code=505, message="Exceção interna da aplicação"),
+    })
+	public ResponseEntity<List<Cliente>> getClienteByCpf(@PathVariable String cpf){
+		return ResponseEntity.ok(clienteService.findByCpf(cpf));
+	}
+	
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
 	@ApiOperation(value="Inserção de Cliente")
@@ -50,8 +66,10 @@ public class ClienteController {
     @ApiResponse(code=404, message="Recurso não encontrado"),
     @ApiResponse(code=505, message="Exceção interna da aplicação"),
     })
-	public Cliente inserirCliente(@RequestBody ClienteInserirDTO novoCliente){
+	public Cliente inserirCliente(@RequestBody ClienteInserirDTO novoCliente) throws UniqueCpfException{
 		return clienteService.inserir(novoCliente);
 				
 	}
+	
+	
 }
