@@ -15,7 +15,11 @@ public class ClienteService {
 	@Autowired
 	EnderecoService enderecoService;
 	
-	public Cliente inserir(ClienteInserirDTO novoClienteDTO) {
+	public Cliente inserir(ClienteInserirDTO novoClienteDTO) throws EmailException {
+		Cliente clienteBanco = clienteRepository.findByEmail(novoClienteDTO.getEmail());
+		if (clienteBanco!=null) {
+			throw new EmailException("Já existe um cliente com esse mesmo e-mail" + novoClienteDTO.getEmail());
+		}
 		Cliente novoClienteDB = new Cliente();
 		novoClienteDB.setNomeCompleto(novoClienteDTO.getNomeCompleto());
 		novoClienteDB.setCpf(novoClienteDTO.getCpf());
