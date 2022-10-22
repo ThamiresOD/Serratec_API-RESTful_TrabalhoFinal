@@ -13,9 +13,5 @@
 
 ## Equipe do trabalho (E-COMMERCE):
 
-| [<img src="https://avatars.githubusercontent.com/u/72474294?v=4" width=115><br><sub>Breno Leonardo Ferreira de Paula</sub>](https://github.com/BrenoLeonardo) |  [<img 
-src="https://avatars.githubusercontent.com/u/69130377?v=4" width=115><br><sub>Leonardo de Almeida Ammon</sub>](https://github.com/unamon) |  [<img 
-src="https://avatars.githubusercontent.com/u/110869578?v=4" width=115><br><sub>Marcelle Rebello Machado</sub>](https://github.com/MarcelleMachado) |  [<img 
-src="https://avatars.githubusercontent.com/u/106483714?v=4" width=115><br><sub>Rivania Gomes</sub>](https://github.com/RivaniaGomes) |  [<img 
-src="https://avatars.githubusercontent.com/u/110869558?v=4" width=115><br><sub>Thamires</sub>](https://github.com/ThamiresOD) | 
+| [<img src="https://avatars.githubusercontent.com/u/72474294?v=4" width=115><br><sub>Breno Leonardo Ferreira de Paula</sub>](https://github.com/BrenoLeonardo) |  [<img src="https://avatars.githubusercontent.com/u/69130377?v=4" width=115><br><sub>Leonardo de Almeida Ammon</sub>](https://github.com/unamon) |  [<img src="https://avatars.githubusercontent.com/u/110869578?v=4" width=115><br><sub>Marcelle Rebello Machado</sub>](https://github.com/MarcelleMachado) |  [<img src="https://avatars.githubusercontent.com/u/106483714?v=4" width=115><br><sub>Rivania Gomes</sub>](https://github.com/RivaniaGomes) |  [<img src="https://avatars.githubusercontent.com/u/110869558?v=4" width=115><br><sub>Thamires</sub>](https://github.com/ThamiresOD) | 
 | :---: | :---: | :---: | :---: | :---: |
