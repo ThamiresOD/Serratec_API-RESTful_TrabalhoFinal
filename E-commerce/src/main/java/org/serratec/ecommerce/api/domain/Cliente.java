@@ -23,8 +23,8 @@ import io.swagger.annotations.ApiModelProperty;
 public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@ApiModelProperty(value = "cli_cd_id")
-	@Column(name = "idCliente")
+	@ApiModelProperty(value = "Id do cliente")
+	@Column(name = "cli_cd_id")
 	private Long id;
 	
 	@NotBlank(message = "Preencha o nome completo")
@@ -52,8 +52,8 @@ public class Cliente {
 	@Column(name = "cli_dt_data_nascimento")
 	private LocalDate dataNascimento;
 	
-	@OneToOne(fetch= FetchType.LAZY, cascade = CascadeType.REMOVE) 
-	@JoinColumn(name = "end_cd_id int,", nullable = false)
+	@OneToOne(fetch= FetchType.EAGER, cascade = CascadeType.ALL) 
+	@JoinColumn(name = "end_cd_id", nullable = false)
 	private Endereco endereco;
 
 	public Cliente() {
