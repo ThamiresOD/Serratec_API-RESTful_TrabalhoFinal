@@ -1,4 +1,4 @@
-package org.serratec.ecommerce.api.exception;
+/*package org.serratec.ecommerce.api.exception;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -18,3 +18,4 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 		            return ResponseEntity.unprocessableEntity().body(ex.getMessage());
 	      }
 }
+*/
