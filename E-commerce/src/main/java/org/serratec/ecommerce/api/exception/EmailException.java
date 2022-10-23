@@ -1,6 +1,7 @@
 package org.serratec.ecommerce.api.exception;
 
 public class EmailException extends Exception{
+	private static final long serialVersionUID = 1L;
 	private Integer status;
 	private String titulo;
 	
