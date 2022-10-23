@@ -23,13 +23,11 @@ public class Categoria {
 	@Column(name = "cat_cd_id")
 	private Long id;
 	
-//	@Size(max = 30)
 	@NotBlank(message = "Preencha o nome")
 	@ApiModelProperty(value = "Nome da categoria")
 	@Column(name = "cat_tx_nome", length = 30, nullable = false, unique = true)
 	private String nome;
 	
-//	@Size(max = 200)
 	@NotBlank(message = "Preencha a descricao")
 	@ApiModelProperty(value = "Descricao da categoria")
 	@Column(name = "cat_tx_descricao", length = 200)
