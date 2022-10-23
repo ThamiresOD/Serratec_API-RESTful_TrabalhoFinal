@@ -1,4 +1,4 @@
-package org.serratec.ecommerce.api.exception;
+/*package org.serratec.ecommerce.api.exception;
 
 public class EmailException extends RuntimeException{
 	      
@@ -7,3 +7,4 @@ public class EmailException extends RuntimeException{
 	      }
 
 }
+*/
