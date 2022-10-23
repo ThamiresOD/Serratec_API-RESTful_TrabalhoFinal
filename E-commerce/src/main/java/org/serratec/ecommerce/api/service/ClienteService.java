@@ -18,14 +18,15 @@ public class ClienteService {
 	ClienteRepository clienteRepo;
 	@Autowired
 	EnderecoService enderecoService;
-	
-	public Cliente inserir(ClienteInserirDTO novoClienteDTO) throws CpfException, EmailException{
-		if(!clienteRepo.findByCpf(novoClienteDTO.getCpf()).isEmpty()) {
-			throw new CpfException(400,"O cpf " + novoClienteDTO.getCpf() + " já existe!");
+
+	public Cliente inserir(ClienteInserirDTO novoClienteDTO) throws CpfException, EmailException {
+		if (!clienteRepo.findByCpf(novoClienteDTO.getCpf()).isEmpty()) {
+			throw new CpfException(400, "O cpf " + novoClienteDTO.getCpf() + " já existe!");
 		}
-		if(!findByEmail(novoClienteDTO.getEmail()).isEmpty()) {
+		if (!findByEmail(novoClienteDTO.getEmail()).isEmpty()) {
 			throw new EmailException(400, "O email já está registrado");
 		}
+
 		Cliente novoClienteDB = new Cliente();
 		novoClienteDB.setNomeCompleto(novoClienteDTO.getNomeCompleto());
 		novoClienteDB.setCpf(novoClienteDTO.getCpf());
@@ -35,49 +36,50 @@ public class ClienteService {
 		novoClienteDB.setEndereco(enderecoService.buscar(novoClienteDTO.getCep(), novoClienteDTO.getNumero()));
 		return clienteRepo.save(novoClienteDB);
 	}
-	
+
 	public void deletarCliente(Long id) throws ClienteNotFoundException {
-		if(clienteRepo.findById(id).isEmpty()) {
+		if (clienteRepo.findById(id).isEmpty()) {
 			throw new ClienteNotFoundException(404, "Cliente não encontrado");
 		} else {
 			clienteRepo.deleteById(id);
 		}
-		
+
 	}
-	
+
 	public Cliente updateCliente(Cliente updateCliente) throws ClienteNotFoundException, CpfException, EmailException {
 		Optional<Cliente> clienteDB = clienteRepo.findById(updateCliente.getId());
 		String cpfClienteDB = clienteDB.get().getCpf();
 		String emailClienteDB = clienteDB.get().getEmail();
-		if(!clienteDB.isPresent()) {
+		if (!clienteDB.isPresent()) {
 			throw new ClienteNotFoundException(404, "Cliente não encontrado");
 		}
-		//Se o cpf novo já está no banco de dados e não é igual ao do clienteDB
-		if(!clienteRepo.findByCpf(updateCliente.getCpf()).isEmpty() && cpfClienteDB != updateCliente.getCpf()) {
+		// Se o cpf novo já está no banco de dados e não é igual ao do clienteDB
+		if (!clienteRepo.findByCpf(updateCliente.getCpf()).isEmpty() && cpfClienteDB != updateCliente.getCpf()) {
 			throw new CpfException(400, "Cpf já existente");
 		}
-		//Se o email já está no banco de dados e não é igual ao do clienteDB
-		if(!clienteRepo.findByEmail(updateCliente.getEmail()).isEmpty()  && emailClienteDB != updateCliente.getEmail()) {
+		// Se o email já está no banco de dados e não é igual ao do clienteDB
+		if (!clienteRepo.findByEmail(updateCliente.getEmail()).isEmpty()
+				&& emailClienteDB != updateCliente.getEmail()) {
 			throw new EmailException(400, "Email já existente");
 		}
-		
+
 		return clienteRepo.save(updateCliente);
 	}
-	
-	public List<Cliente> findAll(){
+
+	public List<Cliente> findAll() {
 		return clienteRepo.findAll();
 	}
-	
-	public Cliente findById(Long id) throws ClienteNotFoundException{
+
+	public Cliente findById(Long id) throws ClienteNotFoundException {
 		Optional<Cliente> clienteDB = clienteRepo.findById(id);
-		if(!clienteDB.isPresent()) {
+		if (!clienteDB.isPresent()) {
 			throw new ClienteNotFoundException(404, "Cliente não encontrado");
-		}	
+		}
 		return clienteDB.get();
 	}
-	
-	public List<Cliente> findByEmail(String email){
+
+	public List<Cliente> findByEmail(String email) {
 		return clienteRepo.findByEmail(email);
 	}
-	
+
 }
