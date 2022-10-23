@@ -9,7 +9,7 @@ INSERT INTO cliente(cli_tx_nome_completo, cli_tx_email, cli_tx_cpf, cli_tx_telef
 ;
 
 --Produto
-INSERT INTO produto(prd_tx_nome, prd_tx_descricao, prd_int_quantidade_estoque, prd_dt_data_cadastro, prd_nm_valor_unitario, prd_imagem_produto, cat_cd_id) VALUES 
+INSERT INTO produto(prd_tx_nome, prd_tx_descricao, prd_int_quantidade_estoque, prd_dt_data_cadastro, prd_nm_valor_unitario, prd_tx_url_produto, cat_cd_id) VALUES 
 	('Boba feet', 'Boneco Boba feet', 10, '2022-06-04', 110, NULL, 1),
     ('Leia Organa', 'Boneco Leia Organa', 10, '2022-06-04', 110, NULL, 1),
  	('Yoda', 'Boneco Yoda', 10, '2022-06-04', 110, NULL, 1),
