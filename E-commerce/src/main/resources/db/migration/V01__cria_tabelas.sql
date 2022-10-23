@@ -32,7 +32,7 @@ CREATE TABLE produto (
 	prd_int_quantidade_estoque int,
 	prd_dt_data_cadastro date,
 	prd_nm_valor_unitario numeric NOT NULL,
-	prd_imagem_produto bytea,
+	prd_tx_url_produto varchar,
 	cat_cd_id int REFERENCES categoria(cat_cd_id)
 );
 
@@ -55,6 +55,14 @@ CREATE TABLE pedido_item (
 	pdt_nm_valor_liquido numeric NOT NULL,
 	ped_cd_id int REFERENCES pedido(ped_cd_id),
 	prd_cd_id int REFERENCES produto(prd_cd_id)
+);
+
+create table foto (
+	fot_cd_id serial primary key,
+	fot_dados bytea,
+	fot_tx_tipo varchar(100),
+	fot_tx_nome varchar(100),
+	prd_cd_id int references produto(prd_cd_id)
 );
 
 
