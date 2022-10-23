@@ -48,20 +48,20 @@ public class ClienteService {
 
 	public Cliente updateCliente(Cliente updateCliente) throws ClienteNotFoundException, CpfException, EmailException {
 		Optional<Cliente> clienteDB = clienteRepo.findById(updateCliente.getId());
-		String cpfClienteDB = clienteDB.get().getCpf();
-		String emailClienteDB = clienteDB.get().getEmail();
+//		String cpfClienteDB = clienteDB.get().getCpf();
+//		String emailClienteDB = clienteDB.get().getEmail();
 		if (!clienteDB.isPresent()) {
 			throw new ClienteNotFoundException(404, "Cliente não encontrado");
 		}
-		// Se o cpf novo já está no banco de dados e não é igual ao do clienteDB
-		if (!clienteRepo.findByCpf(updateCliente.getCpf()).isEmpty() && cpfClienteDB != updateCliente.getCpf()) {
-			throw new CpfException(400, "Cpf já existente");
-		}
-		// Se o email já está no banco de dados e não é igual ao do clienteDB
-		if (!clienteRepo.findByEmail(updateCliente.getEmail()).isEmpty()
-				&& emailClienteDB != updateCliente.getEmail()) {
-			throw new EmailException(400, "Email já existente");
-		}
+//		// Se o cpf novo já está no banco de dados e não é igual ao do clienteDB
+//		if (!clienteRepo.findByCpf(updateCliente.getCpf()).isEmpty() && cpfClienteDB != updateCliente.getCpf()) {
+//			throw new CpfException(400, "Cpf já existente");
+//		}
+//		// Se o email já está no banco de dados e não é igual ao do clienteDB
+//		if (!clienteRepo.findByEmail(updateCliente.getEmail()).isEmpty()
+//				&& emailClienteDB != updateCliente.getEmail()) {
+//			throw new EmailException(400, "Email já existente");
+//		}
 
 		return clienteRepo.save(updateCliente);
 	}
