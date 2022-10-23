@@ -1,6 +1,7 @@
 package org.serratec.ecommerce.api.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.serratec.ecommerce.api.domain.Cliente;
 import org.serratec.ecommerce.api.domain.dto.ClienteInserirDTO;
@@ -19,7 +20,7 @@ public class ClienteService {
 	EnderecoService enderecoService;
 	
 	public Cliente inserir(ClienteInserirDTO novoClienteDTO) throws CpfException, EmailException{
-		if(!findByCpf(novoClienteDTO.getCpf()).isEmpty()) {
+		if(!clienteRepo.findByCpf(novoClienteDTO.getCpf()).isEmpty()) {
 			throw new CpfException(400,"O cpf " + novoClienteDTO.getCpf() + " já existe!");
 		}
 		if(!findByEmail(novoClienteDTO.getEmail()).isEmpty()) {
@@ -37,7 +38,7 @@ public class ClienteService {
 	
 	public void deletarCliente(Long id) throws ClienteNotFoundException {
 		if(clienteRepo.findById(id).isEmpty()) {
-			throw new ClienteNotFoundException(404, "O cliente não foi encontrado");
+			throw new ClienteNotFoundException(404, "Cliente não encontrado");
 		} else {
 			clienteRepo.deleteById(id);
 		}
@@ -47,8 +48,12 @@ public class ClienteService {
 		return clienteRepo.findAll();
 	}
 	
-	public List<Cliente> findByCpf(String cpf){
-		return clienteRepo.findByCpf(cpf);
+	public Cliente findById(Long id) throws ClienteNotFoundException{
+		Optional<Cliente> clienteDB = clienteRepo.findById(id);
+		if(!clienteDB.isPresent()) {
+			throw new ClienteNotFoundException(404, "Cliente não encontrado");
+		}	
+		return clienteDB.get();
 	}
 	
 	public List<Cliente> findByEmail(String email){

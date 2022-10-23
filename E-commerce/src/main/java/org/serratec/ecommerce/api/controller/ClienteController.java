@@ -26,7 +26,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("/clientes")
+@RequestMapping("api/clientes")
 public class ClienteController {
 
 	@Autowired 
@@ -45,7 +45,7 @@ public class ClienteController {
 		return ResponseEntity.ok(clienteService.findAll());
 	}
 	
-	@GetMapping("/{cpf}")
+	@GetMapping("/{id}")
 	@ApiOperation(value="Encontra cliente por cpf")
     @ApiResponses(value= {
     @ApiResponse(code=200, message="Retorna a lista de clientes"),
@@ -54,8 +54,8 @@ public class ClienteController {
     @ApiResponse(code=404, message="Recurso não encontrado"),
     @ApiResponse(code=505, message="Exceção interna da aplicação"),
     })
-	public ResponseEntity<List<Cliente>> getClienteByCpf(@PathVariable String cpf){
-		return ResponseEntity.ok(clienteService.findByCpf(cpf));
+	public ResponseEntity<Cliente> getClienteById(@PathVariable Long id) throws ClienteNotFoundException{
+		return ResponseEntity.ok(clienteService.findById(id));
 	}
 	
 	@PostMapping
@@ -87,5 +87,6 @@ public class ClienteController {
 		return ResponseEntity.noContent().build();
 	}
 	
+//	public ResponseEntity<>
 	
 }
