@@ -4,8 +4,9 @@ import java.util.List;
 
 import org.serratec.ecommerce.api.domain.Cliente;
 import org.serratec.ecommerce.api.domain.dto.ClienteInserirDTO;
-import org.serratec.ecommerce.api.exception.UniqueCpfException;
-import org.serratec.ecommerce.api.exception.UniqueEmailException;
+import org.serratec.ecommerce.api.exception.ClienteNotFoundException;
+import org.serratec.ecommerce.api.exception.CpfException;
+import org.serratec.ecommerce.api.exception.EmailException;
 import org.serratec.ecommerce.api.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,12 +18,12 @@ public class ClienteService {
 	@Autowired
 	EnderecoService enderecoService;
 	
-	public Cliente inserir(ClienteInserirDTO novoClienteDTO) throws UniqueCpfException, UniqueEmailException{
+	public Cliente inserir(ClienteInserirDTO novoClienteDTO) throws CpfException, EmailException{
 		if(!findByCpf(novoClienteDTO.getCpf()).isEmpty()) {
-			throw new UniqueCpfException(400,"O cpf " + novoClienteDTO.getCpf() + " já existe!");
+			throw new CpfException(400,"O cpf " + novoClienteDTO.getCpf() + " já existe!");
 		}
 		if(!findByEmail(novoClienteDTO.getEmail()).isEmpty()) {
-			throw new UniqueEmailException(400, "O email já está registrado");
+			throw new EmailException(400, "O email já está registrado");
 		}
 		Cliente novoClienteDB = new Cliente();
 		novoClienteDB.setNomeCompleto(novoClienteDTO.getNomeCompleto());
@@ -34,6 +35,14 @@ public class ClienteService {
 		return clienteRepo.save(novoClienteDB);
 	}
 	
+	public void deletarCliente(Long id) throws ClienteNotFoundException {
+		if(clienteRepo.findById(id).isEmpty()) {
+			throw new ClienteNotFoundException(404, "O cliente não foi encontrado");
+		} else {
+			clienteRepo.deleteById(id);
+		}
+		
+	}
 	public List<Cliente> findAll(){
 		return clienteRepo.findAll();
 	}
@@ -45,4 +54,6 @@ public class ClienteService {
 	public List<Cliente> findByEmail(String email){
 		return clienteRepo.findByEmail(email);
 	}
+	
+	
 }

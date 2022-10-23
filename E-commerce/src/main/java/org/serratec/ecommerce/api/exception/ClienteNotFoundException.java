@@ -1,13 +1,14 @@
 package org.serratec.ecommerce.api.exception;
 
-public class UniqueEmailException extends Exception{
+public class ClienteNotFoundException extends Exception{
 	private Integer status;
 	private String titulo;
 	
-	public UniqueEmailException() {
+	
+	public ClienteNotFoundException() {
 		super();
 	}
-	public UniqueEmailException(Integer status, String titulo) {
+	public ClienteNotFoundException(Integer status, String titulo) {
 		super();
 		this.status = status;
 		this.titulo = titulo;
@@ -25,6 +26,4 @@ public class UniqueEmailException extends Exception{
 		this.titulo = titulo;
 	}
 	
-
 }
-

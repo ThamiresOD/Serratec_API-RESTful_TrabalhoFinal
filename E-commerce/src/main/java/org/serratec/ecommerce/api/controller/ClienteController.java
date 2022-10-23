@@ -5,12 +5,14 @@ import java.util.List;
 
 import org.serratec.ecommerce.api.domain.Cliente;
 import org.serratec.ecommerce.api.domain.dto.ClienteInserirDTO;
-import org.serratec.ecommerce.api.exception.UniqueCpfException;
-import org.serratec.ecommerce.api.exception.UniqueEmailException;
+import org.serratec.ecommerce.api.exception.ClienteNotFoundException;
+import org.serratec.ecommerce.api.exception.CpfException;
+import org.serratec.ecommerce.api.exception.EmailException;
 import org.serratec.ecommerce.api.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,7 +45,6 @@ public class ClienteController {
 		return ResponseEntity.ok(clienteService.findAll());
 	}
 	
-	
 	@GetMapping("/{cpf}")
 	@ApiOperation(value="Encontra cliente por cpf")
     @ApiResponses(value= {
@@ -67,9 +68,23 @@ public class ClienteController {
     @ApiResponse(code=404, message="Recurso não encontrado"),
     @ApiResponse(code=505, message="Exceção interna da aplicação"),
     })
-	public Cliente inserirCliente(@RequestBody ClienteInserirDTO novoCliente) throws UniqueCpfException, UniqueEmailException{
+	public Cliente inserirCliente(@RequestBody ClienteInserirDTO novoCliente) throws CpfException, EmailException{
 		return clienteService.inserir(novoCliente);
 				
+	}
+
+	@DeleteMapping("/{id}")
+	@ApiOperation(value="Remoção de Cliente")
+    @ApiResponses(value= {
+    @ApiResponse(code=204, message="Cliente removido eletado"),
+    @ApiResponse(code=401, message="Erro de autenticação"),
+    @ApiResponse(code=403, message="Não há permissão para acessar o recurso"),
+    @ApiResponse(code=404, message="Cliente não encontrado"),
+    @ApiResponse(code=505, message="Exceção interna da aplicação"),
+    })
+	public ResponseEntity<Void> deletarCliente(@PathVariable Long id) throws ClienteNotFoundException{ 
+		clienteService.deletarCliente(id);
+		return ResponseEntity.noContent().build();
 	}
 	
 	

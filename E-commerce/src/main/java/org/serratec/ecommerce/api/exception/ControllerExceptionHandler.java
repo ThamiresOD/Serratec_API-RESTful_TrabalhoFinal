@@ -12,15 +12,17 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler{
 	
-	@ExceptionHandler(value = UniqueCpfException.class)
-	protected ResponseEntity<Object> handleUniqueCpf(UniqueCpfException ex){
-
+	@ExceptionHandler(value = CpfException.class)
+	protected ResponseEntity<Object> handleUniqueCpf(CpfException ex){
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemErro(ex.getStatus(), ex.getTitulo(), LocalDateTime.now()));
 	}
-	
-	protected ResponseEntity<Object> handleUniqueEmail(UniqueEmailException ex){
+	@ExceptionHandler(value = EmailException.class)
+	protected ResponseEntity<Object> handleUniqueEmail(EmailException ex){
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MensagemErro(ex.getStatus(), ex.getTitulo(), LocalDateTime.now()));
 	}
-	
+	@ExceptionHandler(value = ClienteNotFoundException.class)
+	protected ResponseEntity<Object> handleClienteNotFound(ClienteNotFoundException ex){
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MensagemErro(ex.getStatus(), ex.getTitulo(), LocalDateTime.now()));
+	}
 	
 }
