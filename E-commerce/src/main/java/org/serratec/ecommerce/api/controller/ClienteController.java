@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -51,7 +52,7 @@ public class ClienteController {
     @ApiResponse(code=200, message="Retorna a lista de clientes"),
     @ApiResponse(code=401, message="Erro de autenticação"),
     @ApiResponse(code=403, message="Não há permissão para acessar o recurso"),
-    @ApiResponse(code=404, message="Recurso não encontrado"),
+    @ApiResponse(code=404, message="Cliente não encontrado"),
     @ApiResponse(code=505, message="Exceção interna da aplicação"),
     })
 	public ResponseEntity<Cliente> getClienteById(@PathVariable Long id) throws ClienteNotFoundException{
@@ -87,6 +88,17 @@ public class ClienteController {
 		return ResponseEntity.noContent().build();
 	}
 	
-//	public ResponseEntity<>
+	@PutMapping("/{id}")
+	@ApiOperation(value="Update cliente específico")
+    @ApiResponses(value= {
+    @ApiResponse(code=200, message="Retorna a lista de clientes"),
+    @ApiResponse(code=401, message="Erro de autenticação"),
+    @ApiResponse(code=403, message="Não há permissão para acessar o recurso"),
+    @ApiResponse(code=404, message="Cliente não encontrado"),
+    @ApiResponse(code=505, message="Exceção interna da aplicação"),
+    })
+	public ResponseEntity<Cliente> updateCliente(@RequestBody Cliente updateCliente, @PathVariable Long id) throws ClienteNotFoundException, CpfException, EmailException{
+		return ResponseEntity.ok(clienteService.updateCliente(updateCliente, id));
+	}
 	
 }
