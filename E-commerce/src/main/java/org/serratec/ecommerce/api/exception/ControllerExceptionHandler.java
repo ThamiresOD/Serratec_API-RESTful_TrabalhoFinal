@@ -11,6 +11,10 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 	      @ExceptionHandler(EmailException.class)
 	      public ResponseEntity<Object> emailExceptionHandler(EmailException ex){
 		            return ResponseEntity.unprocessableEntity().body(ex.getMessage());
+	      }
 		
+	      @ExceptionHandler(CpfException.class)
+	      public ResponseEntity<Object> cpfExceptionHandler(CpfException ex){
+		            return ResponseEntity.unprocessableEntity().body(ex.getMessage());
 	      }
 }
