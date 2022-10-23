@@ -88,7 +88,7 @@ public class ClienteController {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping
 	@ApiOperation(value="Update cliente específico")
     @ApiResponses(value= {
     @ApiResponse(code=200, message="Retorna a lista de clientes"),
@@ -97,8 +97,8 @@ public class ClienteController {
     @ApiResponse(code=404, message="Cliente não encontrado"),
     @ApiResponse(code=505, message="Exceção interna da aplicação"),
     })
-	public ResponseEntity<Cliente> updateCliente(@RequestBody Cliente updateCliente, @PathVariable Long id) throws ClienteNotFoundException, CpfException, EmailException{
-		return ResponseEntity.ok(clienteService.updateCliente(updateCliente, id));
+	public ResponseEntity<Cliente> updateCliente(@RequestBody Cliente updateCliente) throws ClienteNotFoundException, CpfException, EmailException{
+		return ResponseEntity.ok(clienteService.updateCliente(updateCliente));
 	}
 	
 }

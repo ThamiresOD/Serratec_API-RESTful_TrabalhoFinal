@@ -45,8 +45,8 @@ public class ClienteService {
 		
 	}
 	
-	public Cliente updateCliente(Cliente updateCliente, Long id) throws ClienteNotFoundException, CpfException, EmailException {
-		Optional<Cliente> clienteDB = clienteRepo.findById(id);
+	public Cliente updateCliente(Cliente updateCliente) throws ClienteNotFoundException, CpfException, EmailException {
+		Optional<Cliente> clienteDB = clienteRepo.findById(updateCliente.getId());
 		String cpfClienteDB = clienteDB.get().getCpf();
 		String emailClienteDB = clienteDB.get().getEmail();
 		if(!clienteDB.isPresent()) {
