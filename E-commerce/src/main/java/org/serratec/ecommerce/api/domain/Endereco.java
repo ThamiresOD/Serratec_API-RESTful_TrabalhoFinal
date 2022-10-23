@@ -11,6 +11,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.serratec.ecommerce.api.domain.dto.EnderecoViaCepDTO;
+
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity
@@ -56,6 +58,16 @@ public class Endereco {
 	@Column(name = "end_tx_uf", length = 2, nullable = false)
 	private String uf;
 
+	public Endereco(EnderecoViaCepDTO enderecoDTO, String numero) {
+		this.cep = enderecoDTO.getCep().replaceAll("-", "");
+		this.rua = enderecoDTO.getLogradouro();
+		this.bairro = enderecoDTO.getBairro();
+		this.cidade = enderecoDTO.getLocalidade();
+		this.complemento = enderecoDTO.getComplemento();
+		this.uf = enderecoDTO.getUf();
+		this.numero = numero;
+	}
+	
 	public Endereco() {
 		super();
 	}
