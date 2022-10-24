@@ -32,11 +32,10 @@ public class ProdutoService {
 		return prodRepo.save(produto);
 	}
 
-	public ProdutoDTO inserir(ProdutoInserirDTO produto, MultipartFile file) throws IOException {
-		produto = prodRepo.save(produto);
-		Produto produtoDB = new Produto(produto);
-		fotoService.inserir(produtoDB, file);
-		return adicionarImagemUri(produtoDB);
+	public ProdutoDTO inserir(ProdutoInserirDTO produtoDTO, MultipartFile file) throws IOException {
+		Produto produto = prodRepo.save(new Produto(produtoDTO));
+		fotoService.inserir(produto, file);
+		return adicionarImagemUri(produto);
 	}
 
 	public List<ProdutoDTO> listar() {

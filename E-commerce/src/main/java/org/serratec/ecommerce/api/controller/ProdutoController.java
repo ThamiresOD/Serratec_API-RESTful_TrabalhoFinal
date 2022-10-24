@@ -33,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Parameter;
 
 @RestController
 @RequestMapping("/api/produtos")
@@ -127,7 +128,10 @@ public class ProdutoController {
     @ApiResponse(code=404, message="Recurso não encontrado"),
     @ApiResponse(code=505, message="Exceção interna da aplicação"),
     })
-	public ProdutoDTO inserir(@RequestPart ProdutoInserirDTO produto, @RequestPart MultipartFile file) throws IOException {
+	public ProdutoDTO inserir(
+			@RequestPart ProdutoInserirDTO produto,
+			@RequestPart MultipartFile file
+			) throws IOException {
 		return produtoService.inserir(produto, file);
 	}
 	

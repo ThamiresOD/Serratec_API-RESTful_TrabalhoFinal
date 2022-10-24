@@ -55,11 +55,6 @@ public class Produto {
 	@Column(name = "prd_nm_valor_unitario", nullable = false)
 	private Double valorUnitarioProduto;
 
-	@NotNull
-	@ApiModelProperty(value = "URL da imagem do produto")
-	@Column(name = "prd_tx_url_produto", nullable = false)
-	private String urlProduto;
-
 	@ManyToOne(fetch= FetchType.EAGER, cascade = CascadeType.REMOVE) 
 	@JoinColumn(name = "cat_cd_id", nullable = false)
 	private Categoria categoria;
@@ -70,7 +65,7 @@ public class Produto {
 
 	public Produto(Long id, @NotBlank(message = "Preencha o nome") String nomeProduto, String descricaoProduto,
 			Integer quantidadeEstoqueProduto, LocalDateTime dataCadastroProduto, @NotNull Double valorUnitarioProduto,
-			@NotNull String urlProduto, Categoria categoria) {
+			 Categoria categoria) {
 		super();
 		this.id = id;
 		this.nomeProduto = nomeProduto;
@@ -78,7 +73,6 @@ public class Produto {
 		this.quantidadeEstoqueProduto = quantidadeEstoqueProduto;
 		this.dataCadastroProduto = dataCadastroProduto;
 		this.valorUnitarioProduto = valorUnitarioProduto;
-		this.urlProduto = urlProduto;
 		this.categoria = categoria;
 	}
 
@@ -88,7 +82,6 @@ public class Produto {
 		this.quantidadeEstoqueProduto=produtoDTO.getQtdEstoque();
 		this.dataCadastroProduto=LocalDateTime.now();
 		this.valorUnitarioProduto=produtoDTO.getValorUnitario();
-		this.urlProduto=produtoDTO.getUrlProduto();
 		this.categoria=produtoDTO.getCategoria();
 		
 
@@ -132,14 +125,6 @@ public class Produto {
 
 	public void setValorUnitarioProduto(Double valorUnitarioProduto) {
 		this.valorUnitarioProduto = valorUnitarioProduto;
-	}
-
-	public String getUrlProduto() {
-		return urlProduto;
-	}
-
-	public void setUrlProduto(String urlProduto) {
-		this.urlProduto = urlProduto;
 	}
 
 	public Categoria getCategoria() {

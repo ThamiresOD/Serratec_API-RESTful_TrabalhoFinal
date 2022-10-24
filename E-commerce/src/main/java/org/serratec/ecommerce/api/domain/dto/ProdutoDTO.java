@@ -24,7 +24,6 @@ public class ProdutoDTO {
 		this.quantidadeEstoqueProduto = produto.getQuantidadeEstoqueProduto();
 		this.valorUnitarioProduto = produto.getValorUnitarioProduto();
 		this.categoria = produto.getCategoria();
-		this.urlProduto = produto.getUrlProduto();
 	}
 
 	
