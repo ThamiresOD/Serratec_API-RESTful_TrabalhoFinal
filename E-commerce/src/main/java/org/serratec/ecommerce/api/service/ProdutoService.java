@@ -2,9 +2,9 @@ package org.serratec.ecommerce.api.service;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.serratec.ecommerce.api.domain.Produto;
 import org.serratec.ecommerce.api.domain.dto.ProdutoInserirDTO;
@@ -40,19 +40,26 @@ public class ProdutoService {
 	}
 
 	public List<ProdutoInserirDTO> listar() {
-		List<ProdutoInserirDTO> produtoDTOs = prodRepo.findAll().stream().map(f -> adicionarImagemUri(f))
-				.collect(Collectors.toList());
-		return produtoDTOs;
+		List<Produto> produtos = prodRepo.findAll();
+		List<ProdutoInserirDTO>  dtos = new ArrayList<>();
+		for (Produto produto : produtos) {
+			ProdutoInserirDTO dto = adicionarImagemUri(produto);
+			dtos.add(dto);
+		}
+		return dtos;
 	}
 
 	public ProdutoInserirDTO adicionarImagemUri(Produto produto) {
-		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/produtos/{id}/foto")
-				.buildAndExpand(produto.getId()).toUri();
 		ProdutoInserirDTO dto = new ProdutoInserirDTO(produto);
 		dto.setNome(produto.getNomeProduto());
 		dto.setDescricao(produto.getDescricaoProduto());
 		dto.setQtdEstoque(produto.getQuantidadeEstoqueProduto());
+		dto.setValorUnitario(produto.getValorUnitarioProduto());
 		dto.setCategoria(produto.getCategoria());
+
+		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/produtos/{id}/foto")
+				.buildAndExpand(produto.getId()).toUri();
+
 		dto.setUrlProduto(uri.toString());
 		return dto;
 	}
@@ -74,6 +81,6 @@ public class ProdutoService {
 
 	public Produto save(Produto produto) {
 		return prodRepo.save(produto);
-		
+
 	}
 }

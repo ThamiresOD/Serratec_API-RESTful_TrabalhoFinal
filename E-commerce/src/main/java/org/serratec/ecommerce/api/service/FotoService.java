@@ -19,11 +19,12 @@ public class FotoService {
 
 	public Foto inserir(Produto produto, MultipartFile file) throws IOException {
 		Foto foto = new Foto();
+		foto.setProduto(produto);
 		foto.setNome(file.getName());
 		foto.setTipo(file.getContentType());
 		foto.setDados(file.getBytes());
-		foto.setProduto(produto);
-		return fotoRepository.save(foto);
+		foto = fotoRepository.save(foto);
+		return foto;
 	}
 
 	@Transactional
@@ -31,7 +32,7 @@ public class FotoService {
 		Produto produto = new Produto();
 		produto.setId(id);
 		Optional<Foto> foto = fotoRepository.findByProduto(produto);
-		if (!foto.isPresent()) {
+		if (foto.isPresent()) {
 			return null;
 		}
 		return foto.get();
