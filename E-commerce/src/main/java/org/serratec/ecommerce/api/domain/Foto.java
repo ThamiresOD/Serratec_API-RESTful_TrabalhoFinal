@@ -1,7 +1,6 @@
 package org.serratec.ecommerce.api.domain;
 
 import java.util.Objects;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,7 +41,7 @@ public class Foto {
 	@Column(name = "fot_tx_nome", length = 30, nullable = false, unique = true)
 	private String nome;
 	
-	@OneToOne
+	@OneToOne()
 	@JoinColumn(name = "prd_cd_id")
 	private Produto produto;
 
