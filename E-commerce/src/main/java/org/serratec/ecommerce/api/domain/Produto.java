@@ -1,6 +1,7 @@
 package org.serratec.ecommerce.api.domain;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
@@ -15,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import org.serratec.ecommerce.api.domain.dto.ProdutoInserirDTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -45,7 +48,7 @@ public class Produto {
 	@ApiModelProperty(value = "Data de cadastro do produto")
 	@Column(name = "prd_dt_data_cadastro")
 	@JsonFormat(pattern = "yyyy/MM/dd")
-	private LocalDate dataCadastroProduto = LocalDate.now();
+	private LocalDateTime dataCadastroProduto;
 
 	@NotNull
 	@ApiModelProperty(value = "Valor unitario do produto")
@@ -66,7 +69,7 @@ public class Produto {
 	}
 
 	public Produto(Long id, @NotBlank(message = "Preencha o nome") String nomeProduto, String descricaoProduto,
-			Integer quantidadeEstoqueProduto, LocalDate dataCadastroProduto, @NotNull Double valorUnitarioProduto,
+			Integer quantidadeEstoqueProduto, LocalDateTime dataCadastroProduto, @NotNull Double valorUnitarioProduto,
 			@NotNull String urlProduto, Categoria categoria) {
 		super();
 		this.id = id;
@@ -79,6 +82,18 @@ public class Produto {
 		this.categoria = categoria;
 	}
 
+	public Produto(ProdutoInserirDTO produtoDTO) {
+		this.nomeProduto=produtoDTO.getNome();
+		this.descricaoProduto=produtoDTO.getDescricao();
+		this.quantidadeEstoqueProduto=produtoDTO.getQtdEstoque();
+		this.dataCadastroProduto=LocalDateTime.now();
+		this.valorUnitarioProduto=produtoDTO.getValorUnitario();
+		this.urlProduto=produtoDTO.getUrlProduto();
+		this.categoria=produtoDTO.getCategoria();
+		
+
+
+	}
 	public Long getId() {
 		return id;
 	}
@@ -109,14 +124,6 @@ public class Produto {
 
 	public void setQuantidadeEstoqueProduto(Integer quantidadeEstoqueProduto) {
 		this.quantidadeEstoqueProduto = quantidadeEstoqueProduto;
-	}
-
-	public LocalDate getDataCadastroProduto() {
-		return dataCadastroProduto;
-	}
-
-	public void setDataCadastroProduto(LocalDate dataCadastroProduto) {
-		this.dataCadastroProduto = dataCadastroProduto;
 	}
 
 	public Double getValorUnitarioProduto() {

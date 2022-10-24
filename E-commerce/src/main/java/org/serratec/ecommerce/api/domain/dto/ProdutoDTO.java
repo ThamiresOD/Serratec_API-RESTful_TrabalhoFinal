@@ -15,47 +15,88 @@ public class ProdutoDTO {
 	private LocalDate dataCadastroProduto;
 	private Double valorUnitarioProduto;
 	private Categoria categoria;
-
+	private String urlProduto;
+	
 	public ProdutoDTO(Produto produto) {
 		this.idProduto = produto.getId();
 		this.nomeProduto = produto.getNomeProduto();
 		this.descricaoProduto = produto.getDescricaoProduto();
 		this.quantidadeEstoqueProduto = produto.getQuantidadeEstoqueProduto();
-		this.dataCadastroProduto = produto.getDataCadastroProduto();
 		this.valorUnitarioProduto = produto.getValorUnitarioProduto();
 		this.categoria = produto.getCategoria();
+		this.urlProduto = produto.getUrlProduto();
 	}
 
+	
 	public ProdutoDTO() {
 		super();
 	}
+	
+	
+	public String getUrlProduto() {
+		return urlProduto;
+	}
+
+
+	public void setUrlProduto(String urlProduto) {
+		this.urlProduto = urlProduto;
+	}
+
 
 	public Long getIdProduto() {
 		return idProduto;
+	}
+
+	public void setIdProduto(Long idProduto) {
+		this.idProduto = idProduto;
 	}
 
 	public String getNomeProduto() {
 		return nomeProduto;
 	}
 
+	public void setNomeProduto(String nomeProduto) {
+		this.nomeProduto = nomeProduto;
+	}
+
 	public String getDescricaoProduto() {
 		return descricaoProduto;
+	}
+
+	public void setDescricaoProduto(String descricaoProduto) {
+		this.descricaoProduto = descricaoProduto;
 	}
 
 	public Integer getQuantidadeEstoqueProduto() {
 		return quantidadeEstoqueProduto;
 	}
 
+	public void setQuantidadeEstoqueProduto(Integer quantidadeEstoqueProduto) {
+		this.quantidadeEstoqueProduto = quantidadeEstoqueProduto;
+	}
+
 	public LocalDate getDataCadastroProduto() {
 		return dataCadastroProduto;
+	}
+
+	public void setDataCadastroProduto(LocalDate dataCadastroProduto) {
+		this.dataCadastroProduto = dataCadastroProduto;
 	}
 
 	public Double getValorUnitarioProduto() {
 		return valorUnitarioProduto;
 	}
 
+	public void setValorUnitarioProduto(Double valorUnitarioProduto) {
+		this.valorUnitarioProduto = valorUnitarioProduto;
+	}
+
 	public Categoria getCategoria() {
-		return this.categoria;
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
 	public static List<ProdutoDTO> converter(List<Produto> produtos) {

@@ -81,8 +81,8 @@ public class ProdutoController {
 			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 505, message = "Exceção interna da aplicação"), })
-	public ResponseEntity<List<ProdutoInserirDTO>> listar() {
-		List<ProdutoInserirDTO> produtos = produtoService.listar();
+	public ResponseEntity<List<ProdutoDTO>> listar() {
+		List<ProdutoDTO> produtos = produtoService.listar();
 		return ResponseEntity.ok(produtos);
 	}
 	
@@ -104,7 +104,6 @@ public class ProdutoController {
 		return ResponseEntity.notFound().build();
 	}
 	
-
 	@PostMapping("/y")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	@ApiOperation(value="Inserção de Produto")
@@ -128,7 +127,7 @@ public class ProdutoController {
     @ApiResponse(code=404, message="Recurso não encontrado"),
     @ApiResponse(code=505, message="Exceção interna da aplicação"),
     })
-	public ProdutoInserirDTO inserir(@RequestPart Produto produto,@RequestPart MultipartFile file) throws IOException {
+	public ProdutoDTO inserir(@RequestPart ProdutoInserirDTO produto, @RequestPart MultipartFile file) throws IOException {
 		return produtoService.inserir(produto, file);
 	}
 	

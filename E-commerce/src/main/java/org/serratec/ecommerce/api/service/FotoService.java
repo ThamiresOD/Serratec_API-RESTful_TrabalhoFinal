@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.serratec.ecommerce.api.domain.Foto;
 import org.serratec.ecommerce.api.domain.Produto;
+import org.serratec.ecommerce.api.domain.dto.ProdutoInserirDTO;
 import org.serratec.ecommerce.api.repository.FotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
