@@ -83,6 +83,16 @@ public class Produto {
 		this.categoria=produtoDTO.getCategoria();
 		
 	}
+	public Produto(ProdutoInserirDTO produtoDTO, Long id) {
+		this.id = id;
+		this.nomeProduto=produtoDTO.getNome();
+		this.descricaoProduto=produtoDTO.getDescricao();
+		this.quantidadeEstoqueProduto=produtoDTO.getQtdEstoque();
+		this.dataCadastroProduto=LocalDateTime.now();
+		this.valorUnitarioProduto=produtoDTO.getValorUnitario();
+		this.categoria=produtoDTO.getCategoria();
+		
+	}
 	
 	
 	public Long getId() {

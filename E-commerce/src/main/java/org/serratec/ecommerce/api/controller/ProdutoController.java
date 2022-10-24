@@ -2,15 +2,13 @@ package org.serratec.ecommerce.api.controller;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.serratec.ecommerce.api.domain.Foto;
-import org.serratec.ecommerce.api.domain.Produto;
 import org.serratec.ecommerce.api.domain.dto.ProdutoDTO;
 import org.serratec.ecommerce.api.domain.dto.ProdutoInserirDTO;
-import org.serratec.ecommerce.api.repository.ProdutoRepository;
+import org.serratec.ecommerce.api.exception.ProdutoNotFoundException;
 import org.serratec.ecommerce.api.service.FotoService;
 import org.serratec.ecommerce.api.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +42,7 @@ public class ProdutoController {
 	@Autowired
 	private FotoService fotoService;
 	
-	@Autowired
-	private ProdutoRepository prodRepo;
-
+	
 	@GetMapping
 	@ApiOperation(value = "Listagem de todos os produtos OKOK")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna a lista de produtos"),
@@ -66,7 +62,8 @@ public class ProdutoController {
 			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 505, message = "Exceção interna da aplicação"), })
-	public ResponseEntity<ProdutoDTO> buscarPorId(@PathVariable Long id) {
+	public ResponseEntity<ProdutoDTO> buscarPorId(@PathVariable Long id) 
+	throws ProdutoNotFoundException{
 		ProdutoDTO produto = produtoService.findById(id);
 		return ResponseEntity.ok(produto);
 	}
@@ -91,19 +88,14 @@ public class ProdutoController {
 			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
 			@ApiResponse(code = 404, message = "Cliente não encontrado"),
 			@ApiResponse(code = 505, message = "Exceção interna da aplicação"), })
-	public ResponseEntity<ProdutoDTO> atualizar(@PathVariable Long id, @RequestBody ProdutoInserirDTO form) {
-		Optional<Produto> optional = prodRepo.findById(id);
-		if (optional.isPresent()) {
-			Produto produto = form.atualizar(id, prodRepo);
-			return ResponseEntity.ok(new ProdutoDTO(produto));
-		}
-
-		return ResponseEntity.notFound().build();
+	public ResponseEntity<ProdutoDTO> atualizar(@PathVariable Long id, @RequestBody ProdutoInserirDTO form) 
+	throws ProdutoNotFoundException{
+		return ResponseEntity.ok(produtoService.update(id, form));
 	}
 	
-	@PostMapping("/y")
+	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	@ApiOperation(value="Inserção de Produto")
+	@ApiOperation(value="Inserção de Produto sem imagem")
     @ApiResponses(value= {
     @ApiResponse(code=201, message="Produto criado com sucesso"),
     @ApiResponse(code=401, message="Erro de autenticação"),
@@ -115,7 +107,7 @@ public class ProdutoController {
 		return produtoService.inserir(novoProduto);
 	}
 	
-	@PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+	@PostMapping(path = "/img",consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
 	@ApiOperation(value="Inserção de Produto/imagem")
     @ApiResponses(value= {
     @ApiResponse(code=201, message="Produto criado com sucesso"),
@@ -139,7 +131,8 @@ public class ProdutoController {
 			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 505, message = "Exceção interna da aplicação"), })
-	public ResponseEntity<Void> remover(@PathVariable Long id) {
+	public ResponseEntity<Void> remover(@PathVariable Long id) 
+	throws ProdutoNotFoundException{
 		produtoService.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
