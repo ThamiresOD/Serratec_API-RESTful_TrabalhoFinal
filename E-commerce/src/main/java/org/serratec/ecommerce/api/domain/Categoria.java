@@ -21,7 +21,7 @@ public class Categoria {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@ApiModelProperty(value = "Id da categoria")
 	@Column(name = "cat_cd_id")
-	private Long id;
+	private Long idCategoria;
 	
 	@NotBlank(message = "Preencha o nome")
 	@ApiModelProperty(value = "Nome da categoria")
@@ -37,20 +37,20 @@ public class Categoria {
 		super();
 	}
 
-	public Categoria(Long id, @Size(max = 30) @NotNull String nome, @Size(max = 200) @NotNull String descricao) {
+	public Categoria(Long idCategoria, @Size(max = 30) @NotNull String nome, @Size(max = 200) @NotNull String descricao) {
 		super();
-		this.id = id;
+		this.idCategoria = idCategoria;
 		this.nome = nome;
 		this.descricao = descricao;
 	}
 
-	public Long getId() {
-		return id;
+	public Long getIdCategoria() {
+		return idCategoria;
 	}
 
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdCategoria(Long idCategoria) {
+		this.idCategoria = idCategoria;
 	}
 
 
@@ -76,7 +76,7 @@ public class Categoria {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(idCategoria);
 	}
 
 
@@ -89,7 +89,7 @@ public class Categoria {
 		if (getClass() != obj.getClass())
 			return false;
 		Categoria other = (Categoria) obj;
-		return Objects.equals(id, other.id);
+		return Objects.equals(idCategoria, other.idCategoria);
 	}
 	
 	

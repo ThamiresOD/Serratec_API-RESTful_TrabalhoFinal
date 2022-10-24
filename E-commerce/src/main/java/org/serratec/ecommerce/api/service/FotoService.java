@@ -27,7 +27,7 @@ public class FotoService {
 	}
 
 	@Transactional
-	public Foto buscarPorIdFuncionario(Long id) {
+	public Foto buscarPorIdProduto(Long id) {
 		Produto produto = new Produto();
 		produto.setId(id);
 		Optional<Foto> foto = fotoRepository.findByProduto(produto);

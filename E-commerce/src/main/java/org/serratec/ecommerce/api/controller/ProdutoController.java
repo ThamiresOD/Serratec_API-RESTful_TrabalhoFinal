@@ -10,6 +10,7 @@ import org.serratec.ecommerce.api.domain.Foto;
 import org.serratec.ecommerce.api.domain.Produto;
 import org.serratec.ecommerce.api.domain.dto.ProdutoDTO;
 import org.serratec.ecommerce.api.domain.dto.ProdutoInserirDTO;
+import org.serratec.ecommerce.api.repository.ProdutoRepository;
 import org.serratec.ecommerce.api.service.FotoService;
 import org.serratec.ecommerce.api.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,15 +38,13 @@ import io.swagger.annotations.ApiResponses;
 public class ProdutoController {
 
 	@Autowired
+	private ProdutoRepository prodRepo;
+	
+	@Autowired
 	private ProdutoService produtoService;
 
 	@Autowired
 	private FotoService fotoService;
-
-//	@GetMapping
-//	public List<Produto> getProdutos(){
-//		return produtoService.findAll();
-//	}
 
 	@GetMapping
 	@ApiOperation(value = "Listagem de todos os produtos")
@@ -76,8 +75,8 @@ public class ProdutoController {
 
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public Produto inserirProduto(@RequestBody Produto novo_produto) {
-		return produtoService.inserir(novo_produto);
+	public Produto inserirProduto(@RequestBody Produto novoProduto) {
+		return produtoService.inserir(novoProduto);
 	}
 	
 	
@@ -94,7 +93,7 @@ public class ProdutoController {
 
 	@GetMapping("/{id}/foto")
 	public ResponseEntity<byte[]> buscarFoto(@PathVariable Long id) {
-		Foto foto = fotoService.buscarPorIdFuncionario(id);
+		Foto foto = fotoService.buscarPorIdProduto(id);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-type", foto.getTipo());
 		headers.add("Content-length", String.valueOf(foto.getDados().length));

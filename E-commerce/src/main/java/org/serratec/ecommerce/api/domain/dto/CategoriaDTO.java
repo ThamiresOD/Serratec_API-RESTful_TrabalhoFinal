@@ -7,7 +7,7 @@ import org.serratec.ecommerce.api.domain.Categoria;
 
 public class CategoriaDTO {
 
-	private Long id;
+	private Long idCategoria;
 	private String nome;
 	private String descricao;
 	
@@ -15,17 +15,17 @@ public class CategoriaDTO {
 
 	}
 	public CategoriaDTO(Categoria cat) {
-		this.id = cat.getId();
+		this.idCategoria = cat.getIdCategoria();
 		this.nome = cat.getNome();
 		this.descricao = cat.getDescricao();
 	}
 	
-	public Long getId() {
-		return id;
+	public Long getIdCategoria() {
+		return idCategoria;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdCategoria(Long idCategoria) {
+		this.idCategoria = idCategoria;
 	}
 
 	public String getNome() {
