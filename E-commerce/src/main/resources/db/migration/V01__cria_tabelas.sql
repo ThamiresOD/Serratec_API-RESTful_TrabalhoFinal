@@ -57,7 +57,6 @@ CREATE TABLE pedido_item (
 	prd_cd_id int REFERENCES produto(prd_cd_id)
 );
 
-
 create table foto (
 	fot_cd_id serial primary key,
 	fot_dados bytea,

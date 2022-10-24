@@ -3,8 +3,10 @@ package org.serratec.ecommerce.api.domain;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,7 +44,7 @@ public class Produto {
 
 	@ApiModelProperty(value = "Data de cadastro do produto")
 	@Column(name = "prd_dt_data_cadastro")
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	@JsonFormat(pattern = "yyyy/MM/dd")
 	private LocalDate dataCadastroProduto = LocalDate.now();
 
 	@NotNull
@@ -55,7 +57,7 @@ public class Produto {
 	@Column(name = "prd_tx_url_produto", nullable = false)
 	private String urlProduto;
 
-	@ManyToOne
+	@ManyToOne(fetch= FetchType.EAGER, cascade = CascadeType.REMOVE) 
 	@JoinColumn(name = "cat_cd_id", nullable = false)
 	private Categoria categoria;
 
