@@ -2,9 +2,9 @@ package org.serratec.ecommerce.api.service;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.serratec.ecommerce.api.domain.Foto;
 import org.serratec.ecommerce.api.domain.Produto;
@@ -25,58 +25,23 @@ public class ProdutoService {
 	@Autowired
 	private FotoService fotoService;
 
-	public List<Produto> findAll() {
-		return prodRepo.findAll();
+	public List<ProdutoDTO> findAll() {
+		return prodRepo.findAll().stream().map(p -> adicionarImagemUri(p)).collect(Collectors.toList());
 	}
 
-	public Produto inserir(Produto produto) {
-		return prodRepo.save(produto);
+	public ProdutoDTO findById(Long id) {
+		return adicionarImagemUri(prodRepo.findById(id).get());
+	}
+
+
+	public ProdutoDTO inserir(ProdutoInserirDTO produto) {
+		return new ProdutoDTO(prodRepo.save(new Produto(produto)));
 	}
 
 	public ProdutoDTO inserir(ProdutoInserirDTO produtoDTO, MultipartFile file) throws IOException {
 		Produto produto = prodRepo.save(new Produto(produtoDTO));
 		fotoService.inserir(produto, file);
 		return adicionarImagemUri(produto);
-	}
-
-	public List<ProdutoDTO> listar() {
-		List<Produto> produtos = prodRepo.findAll();
-		List<ProdutoDTO> dtos = new ArrayList<>();
-		for (Produto produto : produtos) {
-			ProdutoDTO dto = adicionarImagemUri(produto);
-			dtos.add(dto);
-		}
-		return dtos;
-	}
-
-	public ProdutoDTO buscar(Long id) {
-		Optional<Produto> produto = prodRepo.findById(id);
-		return adicionarImagemUri(produto.get());
-	}
-	
-	public ProdutoDTO adicionarImagemUri(Produto produto) {
-		URI uri = ServletUriComponentsBuilder
-				.fromCurrentContextPath()
-				.path("/produtos/{id}/foto")
-				.buildAndExpand(produto.getId())
-				.toUri();
-		
-		ProdutoDTO dto = new ProdutoDTO(produto);
-		dto.setNomeProduto(produto.getNomeProduto());
-		dto.setDescricaoProduto(produto.getDescricaoProduto());
-		dto.setQuantidadeEstoqueProduto(produto.getQuantidadeEstoqueProduto());
-		dto.setValorUnitarioProduto(produto.getValorUnitarioProduto());
-		dto.setCategoria(produto.getCategoria());
-
-
-		dto.setUrlProduto(uri.toString());
-		return dto;
-	}
-
-	
-
-	public Optional<Produto> findById(Long id) {
-		return prodRepo.findById(id);
 	}
 
 	public void deleteById(Long id) {
@@ -87,12 +52,23 @@ public class ProdutoService {
 		prodRepo.deleteById(id);
 	}
 
-	public Produto findById(Produto produto) {
-		return prodRepo.findById(produto);
-	}
 
 	public Produto save(Produto produto) {
 		return prodRepo.save(produto);
 
 	}
+	
+	public ProdutoDTO adicionarImagemUri(Produto produto) {
+		URI uri = ServletUriComponentsBuilder
+				.fromCurrentContextPath()
+				.path("/produtos/{id}/foto")
+				.buildAndExpand(produto.getId())
+				.toUri();
+		
+		ProdutoDTO dto = new ProdutoDTO(produto);
+
+		dto.setUrlProduto(uri.toString());
+		return dto;
+	}
+
 }

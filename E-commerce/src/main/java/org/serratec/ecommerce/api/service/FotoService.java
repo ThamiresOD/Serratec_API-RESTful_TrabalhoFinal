@@ -3,8 +3,6 @@ package org.serratec.ecommerce.api.service;
 import java.io.IOException;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
-
 import org.serratec.ecommerce.api.domain.Foto;
 import org.serratec.ecommerce.api.domain.Produto;
 import org.serratec.ecommerce.api.repository.FotoRepository;

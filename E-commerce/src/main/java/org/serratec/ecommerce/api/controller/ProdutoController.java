@@ -33,7 +33,6 @@ import org.springframework.web.multipart.MultipartFile;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import io.swagger.v3.oas.annotations.Parameter;
 
 @RestController
 @RequestMapping("/api/produtos")
@@ -56,8 +55,8 @@ public class ProdutoController {
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 505, message = "Exceção interna da aplicação"), })
 	public List<ProdutoDTO> getProdutos() {
-		List<Produto> produtos = produtoService.findAll();
-		return ProdutoDTO.converter(produtos);
+		List<ProdutoDTO> produtos = produtoService.findAll();
+		return produtos;
 	}
 
 	@GetMapping("/{id}")
@@ -68,11 +67,8 @@ public class ProdutoController {
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 505, message = "Exceção interna da aplicação"), })
 	public ResponseEntity<ProdutoDTO> buscarPorId(@PathVariable Long id) {
-		Optional<Produto> produto = produtoService.findById(id);
-		if (produto.isPresent()) {
-			return ResponseEntity.ok(new ProdutoDTO(produto.get()));
-		}
-		return ResponseEntity.notFound().build();
+		ProdutoDTO produto = produtoService.findById(id);
+		return ResponseEntity.ok(produto);
 	}
 	
 	@GetMapping("/url")
@@ -83,7 +79,7 @@ public class ProdutoController {
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 505, message = "Exceção interna da aplicação"), })
 	public ResponseEntity<List<ProdutoDTO>> listar() {
-		List<ProdutoDTO> produtos = produtoService.listar();
+		List<ProdutoDTO> produtos = produtoService.findAll();
 		return ResponseEntity.ok(produtos);
 	}
 	
@@ -115,7 +111,7 @@ public class ProdutoController {
     @ApiResponse(code=404, message="Recurso não encontrado"),
     @ApiResponse(code=505, message="Exceção interna da aplicação"),
     })
-	public Produto inserir(@RequestBody Produto novoProduto) {
+	public ProdutoDTO inserir(@RequestBody ProdutoInserirDTO novoProduto) {
 		return produtoService.inserir(novoProduto);
 	}
 	
@@ -144,10 +140,6 @@ public class ProdutoController {
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 505, message = "Exceção interna da aplicação"), })
 	public ResponseEntity<Void> remover(@PathVariable Long id) {
-		Optional<Produto> produtoBanco = produtoService.findById(id);
-		if (!produtoBanco.isPresent()) {
-			return ResponseEntity.notFound().build();
-		}
 		produtoService.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}

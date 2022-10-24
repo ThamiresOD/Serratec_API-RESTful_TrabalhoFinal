@@ -1,6 +1,6 @@
 package org.serratec.ecommerce.api.domain.dto;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,35 +12,45 @@ public class ProdutoDTO {
 	private String nomeProduto;
 	private String descricaoProduto;
 	private Integer quantidadeEstoqueProduto;
-	private LocalDate dataCadastroProduto;
+	private LocalDateTime dataCadastroProduto;
 	private Double valorUnitarioProduto;
 	private Categoria categoria;
 	private String urlProduto;
-	
+
 	public ProdutoDTO(Produto produto) {
 		this.idProduto = produto.getId();
 		this.nomeProduto = produto.getNomeProduto();
 		this.descricaoProduto = produto.getDescricaoProduto();
 		this.quantidadeEstoqueProduto = produto.getQuantidadeEstoqueProduto();
+		this.dataCadastroProduto = produto.getDataCadastroProduto();
 		this.valorUnitarioProduto = produto.getValorUnitarioProduto();
 		this.categoria = produto.getCategoria();
 	}
 
+	public ProdutoDTO(Produto produto, String uri) {
+		this.idProduto = produto.getId();
+		this.nomeProduto = produto.getNomeProduto();
+		this.descricaoProduto = produto.getDescricaoProduto();
+		this.quantidadeEstoqueProduto = produto.getQuantidadeEstoqueProduto();
+		this.dataCadastroProduto = produto.getDataCadastroProduto();
+		this.valorUnitarioProduto = produto.getValorUnitarioProduto();
+		this.categoria = produto.getCategoria();
+		this.urlProduto = uri;
+	}
+
 	
+
 	public ProdutoDTO() {
 		super();
 	}
-	
-	
+
 	public String getUrlProduto() {
 		return urlProduto;
 	}
 
-
 	public void setUrlProduto(String urlProduto) {
 		this.urlProduto = urlProduto;
 	}
-
 
 	public Long getIdProduto() {
 		return idProduto;
@@ -74,11 +84,11 @@ public class ProdutoDTO {
 		this.quantidadeEstoqueProduto = quantidadeEstoqueProduto;
 	}
 
-	public LocalDate getDataCadastroProduto() {
+	public LocalDateTime getDataCadastroProduto() {
 		return dataCadastroProduto;
 	}
 
-	public void setDataCadastroProduto(LocalDate dataCadastroProduto) {
+	public void setDataCadastroProduto(LocalDateTime dataCadastroProduto) {
 		this.dataCadastroProduto = dataCadastroProduto;
 	}
 

@@ -3,7 +3,6 @@ package org.serratec.ecommerce.api.domain;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -83,15 +82,24 @@ public class Produto {
 		this.valorUnitarioProduto=produtoDTO.getValorUnitario();
 		this.categoria=produtoDTO.getCategoria();
 		
-
-
 	}
+	
+	
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	
+	public LocalDateTime getDataCadastroProduto() {
+		return dataCadastroProduto;
+	}
+
+	public void setDataCadastroProduto(LocalDateTime dataCadastroProduto) {
+		this.dataCadastroProduto = dataCadastroProduto;
 	}
 
 	public String getNomeProduto() {
