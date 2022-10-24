@@ -54,7 +54,7 @@ public class Produto {
 	@Column(name = "prd_nm_valor_unitario", nullable = false)
 	private Double valorUnitarioProduto;
 
-	@ManyToOne(fetch= FetchType.EAGER, cascade = CascadeType.REMOVE) 
+	@ManyToOne(fetch= FetchType.EAGER) 
 	@JoinColumn(name = "cat_cd_id", nullable = false)
 	private Categoria categoria;
 
