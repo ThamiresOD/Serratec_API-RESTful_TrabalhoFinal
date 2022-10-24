@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.serratec.ecommerce.api.domain.Foto;
 import org.serratec.ecommerce.api.domain.Produto;
 import org.serratec.ecommerce.api.domain.dto.ProdutoDTO;
 import org.serratec.ecommerce.api.domain.dto.ProdutoInserirDTO;
@@ -79,6 +80,10 @@ public class ProdutoService {
 	}
 
 	public void deleteById(Long id) {
+		Optional<Foto> fotoDB = fotoService.buscarPorIdProduto(id);
+		if(fotoDB.isPresent()) {
+			fotoService.deleteFoto(fotoDB.get().getId());
+		}
 		prodRepo.deleteById(id);
 	}
 

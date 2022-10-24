@@ -7,7 +7,6 @@ import javax.transaction.Transactional;
 
 import org.serratec.ecommerce.api.domain.Foto;
 import org.serratec.ecommerce.api.domain.Produto;
-import org.serratec.ecommerce.api.domain.dto.ProdutoInserirDTO;
 import org.serratec.ecommerce.api.repository.FotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,15 +27,23 @@ public class FotoService {
 		return foto;
 	}
 
-	@Transactional
-	public Foto buscarPorIdProduto(Long id) {
-		Produto produto = new Produto();
-		produto.setId(id);
-		Optional<Foto> foto = fotoRepository.findByProduto(produto);
-		if (foto.isPresent()) {
-			return null;
-		}
-		return foto.get();
+	public Optional<Foto> buscarPorIdProduto(Long id){
+		Optional<Foto> fotoEncontrada = fotoRepository.findByIdProduto(id);
+		return fotoEncontrada;
+	}
+//	@Transactional
+//	public Foto buscarPorIdProduto(Long id) {
+//		Produto produto = new Produto();
+//		produto.setId(id);
+//		Optional<Foto> foto = fotoRepository.findByProduto(produto);
+//		if (foto.isPresent()) {
+//			return null;
+//		}
+//		return foto.get();
+//	}
+//	
+	public void deleteFoto(Long id) {
+		fotoRepository.deleteById(id);;
 	}
 
 }

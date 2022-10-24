@@ -160,7 +160,7 @@ public class ProdutoController {
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 505, message = "Exceção interna da aplicação"), })
 	public ResponseEntity<byte[]> buscarFoto(@PathVariable Long id) {
-		Foto foto = fotoService.buscarPorIdProduto(id);
+		Foto foto = fotoService.buscarPorIdProduto(id).get();
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-type", foto.getTipo());
 		headers.add("Content-length", String.valueOf(foto.getDados().length));
