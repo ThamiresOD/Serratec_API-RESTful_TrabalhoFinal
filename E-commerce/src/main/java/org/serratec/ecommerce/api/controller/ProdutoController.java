@@ -93,7 +93,7 @@ public class ProdutoController {
 		return ResponseEntity.ok(produtoService.update(id, form));
 	}
 	
-	@PostMapping
+	@PostMapping("/noimg")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	@ApiOperation(value="Inserção de Produto sem imagem")
     @ApiResponses(value= {
@@ -107,7 +107,7 @@ public class ProdutoController {
 		return produtoService.inserir(novoProduto);
 	}
 	
-	@PostMapping(path = "/img",consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+	@PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
 	@ApiOperation(value="Inserção de Produto/imagem")
     @ApiResponses(value= {
     @ApiResponse(code=201, message="Produto criado com sucesso"),

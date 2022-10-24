@@ -63,7 +63,8 @@ public class ProdutoService {
 		if (optional.isEmpty()) {
 			throw new ProdutoNotFoundException(404, "Produto não encontrado");
 		}
-		Produto produtoDB = new Produto(produto, id);
+		Produto produtoDB = new Produto(produto);
+		produtoDB.setId(id);
 		ProdutoDTO novoProduto = new ProdutoDTO(prodRepo.save(produtoDB));
 		return novoProduto;
 	}
