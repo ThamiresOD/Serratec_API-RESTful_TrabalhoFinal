@@ -39,10 +39,6 @@ public class ProdutoService {
 		return adicionarImagemUri(produtoDB.get());
 	}
 
-	public ProdutoDTO inserir(ProdutoInserirDTO produto) {
-		return new ProdutoDTO(prodRepo.save(new Produto(produto)));
-	}
-
 	public ProdutoDTO inserir(ProdutoInserirDTO produtoDTO, MultipartFile file) throws IOException {
 		Produto produto = prodRepo.save(new Produto(produtoDTO));
 		fotoService.inserir(produto, file);
