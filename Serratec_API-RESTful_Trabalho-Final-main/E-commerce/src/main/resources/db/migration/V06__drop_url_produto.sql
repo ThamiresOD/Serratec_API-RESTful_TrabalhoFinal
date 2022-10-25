@@ -1,1 +1,0 @@
-ALTER TABLE produto DROP COLUMN prd_tx_url_produto;
