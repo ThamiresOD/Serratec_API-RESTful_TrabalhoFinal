@@ -1,5 +1,6 @@
 package org.serratec.ecommerce.api.domain;
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,7 +41,7 @@ public class Foto {
 	@Column(name = "fot_tx_nome", length = 30, nullable = false, unique = true)
 	private String nome;
 	
-	@OneToOne
+	@OneToOne()
 	@JoinColumn(name = "prd_cd_id")
 	private Produto produto;
 
@@ -95,4 +96,22 @@ public class Foto {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Foto other = (Foto) obj;
+		return Objects.equals(id, other.id);
+	}
+	
 }

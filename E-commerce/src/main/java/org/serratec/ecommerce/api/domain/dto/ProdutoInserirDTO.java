@@ -2,15 +2,28 @@ package org.serratec.ecommerce.api.domain.dto;
 
 import org.serratec.ecommerce.api.domain.Categoria;
 import org.serratec.ecommerce.api.domain.Produto;
-import org.serratec.ecommerce.api.service.ProdutoService;
+import org.serratec.ecommerce.api.repository.ProdutoRepository;
 
 public class ProdutoInserirDTO {
 
 	private String nome;
 	private String descricao;
 	private Integer qtdEstoque;
-	private String urlProduto;
+	private Double valorUnitario;
 	private Categoria categoria;
+
+	public ProdutoInserirDTO() {
+		super();
+	}
+
+	public ProdutoInserirDTO(Produto produto) {
+		produto.setNomeProduto(this.nome);
+		produto.setDescricaoProduto(this.descricao);
+		produto.setQuantidadeEstoqueProduto(this.qtdEstoque);
+		produto.setValorUnitarioProduto(this.valorUnitario);
+		produto.setCategoria(this.categoria);
+	}
+
 	
 	public String getNome() {
 		return nome;
@@ -36,6 +49,14 @@ public class ProdutoInserirDTO {
 		this.qtdEstoque = qtdEstoque;
 	}
 
+	public Double getValorUnitario() {
+		return valorUnitario;
+	}
+
+	public void setValorUnitario(Double valorUnitario) {
+		this.valorUnitario = valorUnitario;
+	}
+
 	public Categoria getCategoria() {
 		return categoria;
 	}
@@ -44,27 +65,15 @@ public class ProdutoInserirDTO {
 		this.categoria = categoria;
 	}
 
-	public String getUrlProduto() {
-		return urlProduto;
-	}
-
-	public void setUrlProduto(String urlProduto) {
-		this.urlProduto = urlProduto;
-	}
-
-	public ProdutoInserirDTO(Produto produto) {
+	public Produto atualizar(long id, ProdutoRepository prodRepo) {
+		Produto produto = prodRepo.getReferenceById(id);
 		produto.setNomeProduto(this.nome);
 		produto.setDescricaoProduto(this.descricao);
 		produto.setQuantidadeEstoqueProduto(this.qtdEstoque);
+		produto.setValorUnitarioProduto(this.valorUnitario);
 		produto.setCategoria(this.categoria);
-		produto.setUrlProduto(this.urlProduto);
+
+		return produto;
 	}
 
-	public Produto converter(ProdutoService produtoService, Produto produto) {
-		Produto prod = produtoService.findById(produto);
-		return new Produto();
-	}
-
-	
-	
 }
