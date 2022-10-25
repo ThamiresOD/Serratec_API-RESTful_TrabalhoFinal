@@ -24,5 +24,8 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler{
 	protected ResponseEntity<Object> handleClienteNotFound(ClienteNotFoundException ex){
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MensagemErro(ex.getStatus(), ex.getTitulo(), LocalDateTime.now()));
 	}
-	
+	@ExceptionHandler(value = ProdutoNotFoundException.class)
+	protected ResponseEntity<Object> handleProdutoNotFound(ProdutoNotFoundException ex){
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MensagemErro(ex.getStatus(), ex.getTitulo(), LocalDateTime.now()));
+	}
 }

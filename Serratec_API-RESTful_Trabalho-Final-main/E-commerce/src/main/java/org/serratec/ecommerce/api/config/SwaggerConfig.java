@@ -14,7 +14,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 public class SwaggerConfig {
 
-	@Bean // 'Instanciar' o método http://localhost:8080/swagger-ui/index.html
+	@Bean // 'Instanciar' o método
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()

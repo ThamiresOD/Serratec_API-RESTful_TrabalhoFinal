@@ -1,9 +1,8 @@
 package org.serratec.ecommerce.api.domain;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import org.serratec.ecommerce.api.domain.dto.ProdutoInserirDTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -45,19 +46,14 @@ public class Produto {
 	@ApiModelProperty(value = "Data de cadastro do produto")
 	@Column(name = "prd_dt_data_cadastro")
 	@JsonFormat(pattern = "yyyy/MM/dd")
-	private LocalDate dataCadastroProduto = LocalDate.now();
+	private LocalDateTime dataCadastroProduto;
 
 	@NotNull
 	@ApiModelProperty(value = "Valor unitario do produto")
 	@Column(name = "prd_nm_valor_unitario", nullable = false)
 	private Double valorUnitarioProduto;
 
-	@NotNull
-	@ApiModelProperty(value = "URL da imagem do produto")
-	@Column(name = "prd_tx_url_produto", nullable = false)
-	private String urlProduto;
-
-	@ManyToOne(fetch= FetchType.EAGER, cascade = CascadeType.REMOVE) 
+	@ManyToOne(fetch= FetchType.EAGER) 
 	@JoinColumn(name = "cat_cd_id", nullable = false)
 	private Categoria categoria;
 
@@ -66,8 +62,8 @@ public class Produto {
 	}
 
 	public Produto(Long id, @NotBlank(message = "Preencha o nome") String nomeProduto, String descricaoProduto,
-			Integer quantidadeEstoqueProduto, LocalDate dataCadastroProduto, @NotNull Double valorUnitarioProduto,
-			@NotNull String urlProduto, Categoria categoria) {
+			Integer quantidadeEstoqueProduto, LocalDateTime dataCadastroProduto, @NotNull Double valorUnitarioProduto,
+			 Categoria categoria) {
 		super();
 		this.id = id;
 		this.nomeProduto = nomeProduto;
@@ -75,16 +71,35 @@ public class Produto {
 		this.quantidadeEstoqueProduto = quantidadeEstoqueProduto;
 		this.dataCadastroProduto = dataCadastroProduto;
 		this.valorUnitarioProduto = valorUnitarioProduto;
-		this.urlProduto = urlProduto;
 		this.categoria = categoria;
 	}
 
+	public Produto(ProdutoInserirDTO produtoDTO) {
+		this.nomeProduto=produtoDTO.getNome();
+		this.descricaoProduto=produtoDTO.getDescricao();
+		this.quantidadeEstoqueProduto=produtoDTO.getQtdEstoque();
+		this.dataCadastroProduto=LocalDateTime.now();
+		this.valorUnitarioProduto=produtoDTO.getValorUnitario();
+		this.categoria=produtoDTO.getCategoria();
+		
+	}
+
+	
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	
+	public LocalDateTime getDataCadastroProduto() {
+		return dataCadastroProduto;
+	}
+
+	public void setDataCadastroProduto(LocalDateTime dataCadastroProduto) {
+		this.dataCadastroProduto = dataCadastroProduto;
 	}
 
 	public String getNomeProduto() {
@@ -111,28 +126,12 @@ public class Produto {
 		this.quantidadeEstoqueProduto = quantidadeEstoqueProduto;
 	}
 
-	public LocalDate getDataCadastroProduto() {
-		return dataCadastroProduto;
-	}
-
-	public void setDataCadastroProduto(LocalDate dataCadastroProduto) {
-		this.dataCadastroProduto = dataCadastroProduto;
-	}
-
 	public Double getValorUnitarioProduto() {
 		return valorUnitarioProduto;
 	}
 
 	public void setValorUnitarioProduto(Double valorUnitarioProduto) {
 		this.valorUnitarioProduto = valorUnitarioProduto;
-	}
-
-	public String getUrlProduto() {
-		return urlProduto;
-	}
-
-	public void setUrlProduto(String urlProduto) {
-		this.urlProduto = urlProduto;
 	}
 
 	public Categoria getCategoria() {

@@ -3,6 +3,8 @@ package org.serratec.ecommerce.api.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.serratec.ecommerce.api.config.MailConfig;
 import org.serratec.ecommerce.api.domain.Cliente;
 import org.serratec.ecommerce.api.domain.dto.ClienteInserirDTO;
@@ -12,7 +14,6 @@ import org.serratec.ecommerce.api.exception.EmailException;
 import org.serratec.ecommerce.api.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ClienteService {
@@ -21,8 +22,8 @@ public class ClienteService {
 	@Autowired
 	EnderecoService enderecoService;
 	@Autowired
-	private MailConfig mailConfig;
-	
+	MailConfig mailConfig;
+
 	@Transactional
 	public Cliente inserir(ClienteInserirDTO novoClienteDTO) throws CpfException, EmailException {
 		if (!clienteRepo.findByCpf(novoClienteDTO.getCpf()).isEmpty()) {
@@ -60,7 +61,7 @@ public class ClienteService {
 		if (!clienteDB.isPresent()) {
 			throw new ClienteNotFoundException(404, "Cliente não encontrado");
 		}
-		// Se o cpf novo já está no banco de dados e não é igual ao do clienteDB
+//		// Se o cpf novo já está no banco de dados e não é igual ao do clienteDB
 		if (!clienteRepo.findByCpf(updateCliente.getCpf()).isEmpty() && cpfClienteDB != updateCliente.getCpf()) {
 			throw new CpfException(400, "Cpf já existente");
 		}
