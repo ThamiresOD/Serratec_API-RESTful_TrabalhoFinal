@@ -14,13 +14,13 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 public class SwaggerConfig {
 
-	@Bean // 'Instanciar' o método
+	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
 				.apis(RequestHandlerSelectors
 				.any())
-				.paths(PathSelectors.any()) // Quais são os paths que você quer fazer a documentação
+				.paths(PathSelectors.any()) 
 				.build()
 				.apiInfo(apiInfo());
 
