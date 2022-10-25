@@ -40,7 +40,7 @@ public class ClienteService {
 		novoClienteDB.setEmail(novoClienteDTO.getEmail());
 		novoClienteDB.setEndereco(enderecoService.buscar(novoClienteDTO.getCep(), novoClienteDTO.getNumero()));
 		mailConfig.sendMail(novoClienteDB.getEmail(), "Cliente foi cadastrado com sucesso!", 
-		"Cliente: " + novoClienteDB.getNomeCompleto() + " cadastrado com o cpf: " + novoClienteDB.getCpf()); 
+		"Cliente: " + novoClienteDB.getNomeCompleto() + "\n cadastrado com o cpf: " + novoClienteDB.getCpf()); 
 		return clienteRepo.save(novoClienteDB);
 	}
 
