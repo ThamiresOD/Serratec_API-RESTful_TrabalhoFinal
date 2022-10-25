@@ -9,15 +9,13 @@ import org.springframework.mail.javamail.JavaMailSender;
 public class MailConfig {
 	@Autowired
 	JavaMailSender javaMailSender;
-	
 	public void sendMail(String para, String assunto, String texto) {
-		
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setFrom("amelhorturma4ever@gmail.com");
 		message.setSubject(assunto);
 		message.setText(texto);
 		message.setTo(para);
-		javaMailSender.send(message);	
+		javaMailSender.send(message);
 	}
 
 }

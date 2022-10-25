@@ -1,9 +1,10 @@
 package org.serratec.ecommerce.api.corverters;
 
 import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
 
 import org.serratec.ecommerce.api.domain.StatusPedido;
-
+@Converter
 public class StatusPedidoConverter implements AttributeConverter<StatusPedido, String> {
 
 	@Override
