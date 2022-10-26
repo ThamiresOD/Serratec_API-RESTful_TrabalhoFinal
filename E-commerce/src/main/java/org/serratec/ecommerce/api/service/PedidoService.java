@@ -2,6 +2,7 @@ package org.serratec.ecommerce.api.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.serratec.ecommerce.api.domain.ItemPedido;
 import org.serratec.ecommerce.api.domain.Pedido;
@@ -37,4 +38,14 @@ public class PedidoService {
 		return pedidosDTO;
 		
 	}
+	
+	public PedidoDTO findById(Long id) {
+		Optional<Pedido> pedidoDB = pedidoRepository.findById(id);
+		
+		PedidoDTO pedidoDTO = new PedidoDTO(pedidoDB.get());
+		for (ItemPedido itemPedido : itemPedidoRepo.findByPedido(pedidoDB.get())) {
+			pedidoDTO.addItems(new ItemDTO(itemPedido));
+		}
+		return pedidoDTO;
+			}
 }

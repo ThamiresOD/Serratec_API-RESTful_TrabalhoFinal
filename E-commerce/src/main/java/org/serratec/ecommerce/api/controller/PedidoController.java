@@ -7,6 +7,7 @@ import org.serratec.ecommerce.api.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,6 +34,18 @@ public class PedidoController {
 		return ResponseEntity.ok(pedidoService.findAll());
 	}
 	
+	@GetMapping("/{id}")
+	@ApiOperation(value="Listagem de todos os pedidos")
+    @ApiResponses(value= {
+    @ApiResponse(code=200, message="Retorna a lista de clientes"),
+    @ApiResponse(code=401, message="Erro de autenticação"),
+    @ApiResponse(code=403, message="Não há permissão para acessar o recurso"),
+    @ApiResponse(code=404, message="Recurso não encontrado"),
+    @ApiResponse(code=505, message="Exceção interna da aplicação"),
+    })
+	public ResponseEntity<PedidoDTO> getPedidoPorID(@PathVariable Long id){
+		return ResponseEntity.ok(pedidoService.findById(id));
+	}
 	
 }
 	
