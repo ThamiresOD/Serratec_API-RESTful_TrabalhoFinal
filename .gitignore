@@ -98,7 +98,7 @@ target/
 .settings
 .springBeans
 .sts4-cache
-
+application.properties
 ### IntelliJ IDEA ###
 .idea
 *.iws
@@ -117,3 +117,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+
+
+

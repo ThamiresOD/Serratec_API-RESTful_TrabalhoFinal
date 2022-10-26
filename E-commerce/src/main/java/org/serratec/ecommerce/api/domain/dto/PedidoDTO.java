@@ -1,6 +1,7 @@
 package org.serratec.ecommerce.api.domain.dto;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.serratec.ecommerce.api.domain.Cliente;
@@ -14,7 +15,7 @@ public class PedidoDTO {
 	LocalDate dataEnvio;
 	StatusPedido status;
 	Cliente cliente;
-	List<ItemDTO> items;
+	List<ItemDTO> items = new ArrayList<>();
 
 	public PedidoDTO(Long idPedido, LocalDate dataPedido, LocalDate dataEntrega, LocalDate dataEnvio,
 			StatusPedido status, Cliente cliente, List<ItemDTO> items) {
