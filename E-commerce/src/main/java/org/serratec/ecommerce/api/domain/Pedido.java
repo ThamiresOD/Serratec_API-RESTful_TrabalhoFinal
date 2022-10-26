@@ -5,8 +5,6 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,13 +37,7 @@ public class Pedido {
 	@ApiModelProperty(value = "Data de envio do pedido")
 	@Column(name = "ped_dt_data_envio")
 	private LocalDate dataEnvio;
-
-//	@NotBlank(message = "Preencha o status")
-//	@ApiModelProperty(value = "Status do pedido")
-//	@Column(name = "status", length = 1, nullable = false)
-//	private String status;
-
-	@Enumerated(EnumType.STRING)
+	
 	@NotBlank(message = "Preencha o status")
 	@ApiModelProperty(value = "Status do pedido")
 	@Column(name = "ped_tx_status", length = 1, nullable = false)
@@ -57,7 +49,7 @@ public class Pedido {
 	private Double valorTotal;
 
 	@ManyToOne
-	@JoinColumn(name = "(cli_cd_id", nullable = false)
+	@JoinColumn(name = "cli_cd_id", nullable = false)
 	private Cliente cliente;
 
 	public Pedido() {
