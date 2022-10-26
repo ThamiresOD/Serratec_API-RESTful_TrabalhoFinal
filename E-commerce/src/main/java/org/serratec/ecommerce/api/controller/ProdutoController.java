@@ -12,6 +12,8 @@ import org.serratec.ecommerce.api.exception.ProdutoNotFoundException;
 import org.serratec.ecommerce.api.service.FotoService;
 import org.serratec.ecommerce.api.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -44,7 +46,8 @@ public class ProdutoController {
 	
 	
 	@GetMapping
-	@ApiOperation(value = "Listagem de todos os produtos OKOK")
+	@Cacheable(value = "listaDeProdutos")
+	@ApiOperation(value = "Listagem de todos os produtos")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna a lista de produtos"),
 			@ApiResponse(code = 401, message = "Erro de autenticação"),
 			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
@@ -56,7 +59,8 @@ public class ProdutoController {
 	}
 
 	@GetMapping("/{id}")
-	@ApiOperation(value = "Busca de produto por ID OKOK")
+	@Cacheable(value = "produtosPorId")
+	@ApiOperation(value = "Busca de produto por ID")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna produto especifico"),
 			@ApiResponse(code = 401, message = "Erro de autenticação"),
 			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
@@ -69,7 +73,8 @@ public class ProdutoController {
 	}
 	
 	@GetMapping("/url")
-	@ApiOperation(value = "Listagem de todos os produtos com url OKOK")
+	@Cacheable(value = "produtosProdutosComUrl")
+	@ApiOperation(value = "Listagem de todos os produtos com url")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna a lista de produtos com url"),
 			@ApiResponse(code = 401, message = "Erro de autenticação"),
 			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
@@ -82,6 +87,7 @@ public class ProdutoController {
 	
 	@PutMapping("/{id}")
 	@Transactional
+	@CacheEvict(value = "listaDeProdutos", allEntries = true)
 	@ApiOperation(value = "Update categoria específica")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna alteração realizada"),
 			@ApiResponse(code = 401, message = "Erro de autenticação"),
@@ -94,6 +100,7 @@ public class ProdutoController {
 	}
 	
 	@PostMapping("/noimg")
+	@CacheEvict(value = "listaDeProdutos", allEntries = true)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	@ApiOperation(value="Inserção de Produto sem imagem")
     @ApiResponses(value= {
@@ -108,6 +115,7 @@ public class ProdutoController {
 	}
 	
 	@PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+	@CacheEvict(value = "listaDeProdutos", allEntries = true)
 	@ApiOperation(value="Inserção de Produto/imagem")
     @ApiResponses(value= {
     @ApiResponse(code=201, message="Produto criado com sucesso"),
@@ -125,6 +133,7 @@ public class ProdutoController {
 	
 	@DeleteMapping("/{id}")
 	@Transactional
+	@CacheEvict(value = "listaDeProdutos", allEntries = true)
 	@ApiOperation(value = "Busca de produto por id")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna produto especifico"),
 			@ApiResponse(code = 401, message = "Erro de autenticação"),
@@ -138,7 +147,8 @@ public class ProdutoController {
 	}
 
 	@GetMapping("/{id}/foto")
-	@ApiOperation(value = "Listagem de todos os produtos com foto")
+	@Cacheable(value = "produtosProdutosComFoto")
+	@ApiOperation(value = "Listagem de todos os produtos com foto - VERIFICAR")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna a lista de produtos com url"),
 			@ApiResponse(code = 401, message = "Erro de autenticação"),
 			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),

@@ -1,9 +1,7 @@
 package org.serratec.ecommerce.api.domain.dto;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.serratec.ecommerce.api.domain.Categoria;
+import org.springframework.data.domain.Page;
 
 public class CategoriaDTO {
 
@@ -44,7 +42,7 @@ public class CategoriaDTO {
 		this.descricao = descricao;
 	}
 
-	public static List<CategoriaDTO> converter(List<Categoria> categorias) {
-		return categorias.stream().map(CategoriaDTO::new).collect(Collectors.toList());
+	public static Page<CategoriaDTO> converter(Page<Categoria> categorias) {
+		return categorias.map(CategoriaDTO::new);
 	}
 }
