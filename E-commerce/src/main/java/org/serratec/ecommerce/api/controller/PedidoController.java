@@ -2,8 +2,8 @@ package org.serratec.ecommerce.api.controller;
 
 import java.util.List;
 
-import org.serratec.ecommerce.api.domain.Pedido;
-import org.serratec.ecommerce.api.repository.PedidoRepository;
+import org.serratec.ecommerce.api.domain.dto.PedidoDTO;
+import org.serratec.ecommerce.api.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,7 @@ import io.swagger.annotations.ApiResponses;
 @RequestMapping("api/pedidos")
 public class PedidoController {
 	@Autowired
-	PedidoRepository pedidoRepository;
+	PedidoService pedidoService;
 	
 	@GetMapping
 	@ApiOperation(value="Listagem de todos os pedidos")
@@ -29,8 +29,8 @@ public class PedidoController {
     @ApiResponse(code=404, message="Recurso não encontrado"),
     @ApiResponse(code=505, message="Exceção interna da aplicação"),
     })
-	public ResponseEntity<List<Pedido>> getPedido(){
-		return ResponseEntity.ok(pedidoRepository.findAll());
+	public ResponseEntity<List<PedidoDTO>> getPedido(){
+		return ResponseEntity.ok(pedidoService.findAll());
 	}
 	
 	

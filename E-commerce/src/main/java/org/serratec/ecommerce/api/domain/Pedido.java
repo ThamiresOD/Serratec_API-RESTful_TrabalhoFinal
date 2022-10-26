@@ -37,7 +37,7 @@ public class Pedido {
 	@ApiModelProperty(value = "Data de envio do pedido")
 	@Column(name = "ped_dt_data_envio")
 	private LocalDate dataEnvio;
-	
+
 	@NotBlank(message = "Preencha o status")
 	@ApiModelProperty(value = "Status do pedido")
 	@Column(name = "ped_tx_status", length = 1, nullable = false)

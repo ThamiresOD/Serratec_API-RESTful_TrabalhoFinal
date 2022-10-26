@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity
-@Table(name = "itemPedido")
+@Table(name = "pedido_item")
 public class ItemPedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
