@@ -10,6 +10,8 @@ import org.serratec.ecommerce.api.exception.CpfException;
 import org.serratec.ecommerce.api.exception.EmailException;
 import org.serratec.ecommerce.api.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,6 +36,7 @@ public class ClienteController {
 	ClienteService clienteService;
 
 	@GetMapping
+	@Cacheable(value = "listaDeClientes")
 	@ApiOperation(value="Listagem de todos os clientes")
     @ApiResponses(value= {
     @ApiResponse(code=200, message="Retorna a lista de clientes"),
@@ -47,6 +50,7 @@ public class ClienteController {
 	}
 	
 	@GetMapping("/{id}")
+	@Cacheable(value = "clientePorCpf")
 	@ApiOperation(value="Encontra cliente por cpf")
     @ApiResponses(value= {
     @ApiResponse(code=200, message="Retorna a lista de clientes"),
@@ -60,6 +64,7 @@ public class ClienteController {
 	}
 	
 	@PostMapping
+	@CacheEvict(value = "listaDeClientes", allEntries = true)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	@ApiOperation(value="Inserção de Cliente")
     @ApiResponses(value= {
@@ -75,6 +80,7 @@ public class ClienteController {
 	}
 
 	@DeleteMapping("/{id}")
+	@CacheEvict(value = "listaDeClientes", allEntries = true)
 	@ApiOperation(value="Remoção de Cliente")
     @ApiResponses(value= {
     @ApiResponse(code=204, message="Cliente removido eletado"),
@@ -89,6 +95,7 @@ public class ClienteController {
 	}
 	
 	@PutMapping
+	@CacheEvict(value = "listaDeClientes", allEntries = true)
 	@ApiOperation(value="Update cliente específico")
     @ApiResponses(value= {
     @ApiResponse(code=200, message="Retorna a lista de clientes"),
