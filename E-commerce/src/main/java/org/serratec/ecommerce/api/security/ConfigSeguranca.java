@@ -43,8 +43,8 @@ public class ConfigSeguranca extends WebSecurityConfigurerAdapter {
 			.httpBasic()
 			.and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			.and()
-			.cors()
+//			.and()
+//			.cors()
 			.and()
 			.csrf().disable();
 		http.addFilter(new JwtAuthenticationFilter(this.authenticationManager(), jwtUtil));

@@ -46,6 +46,7 @@ public class JwtUtil {
 		return null;
 	}
 
+	@SuppressWarnings("deprecation")
 	private Claims getClaims(String token) {
 		try {
 			return Jwts.parser().setSigningKey(jwtSecret.getBytes()).parseClaimsJws(token).getBody();

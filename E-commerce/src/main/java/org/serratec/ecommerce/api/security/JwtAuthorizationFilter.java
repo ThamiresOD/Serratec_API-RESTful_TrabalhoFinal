@@ -1,5 +1,7 @@
 package org.serratec.ecommerce.api.security;
 
+import java.io.IOException;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,8 +13,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-
-import io.jsonwebtoken.io.IOException;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 	private JwtUtil jwtUtil;
