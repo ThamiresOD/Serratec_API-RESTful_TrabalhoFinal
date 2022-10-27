@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.serratec.ecommerce.api.domain.dto.PedidoDTO;
 import org.serratec.ecommerce.api.domain.dto.PedidoInserirDTO;
+import org.serratec.ecommerce.api.exception.ClienteNotFoundException;
+import org.serratec.ecommerce.api.exception.ProdutoNotFoundException;
 import org.serratec.ecommerce.api.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,7 +56,7 @@ public class PedidoController {
 	
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	@ApiOperation(value="Listagem de todos os pedidos")
+	@ApiOperation(value="Criação de novo cliente")
     @ApiResponses(value= {
     @ApiResponse(code=200, message="Retorna a lista de clientes"),
     @ApiResponse(code=401, message="Erro de autenticação"),
@@ -62,7 +64,7 @@ public class PedidoController {
     @ApiResponse(code=404, message="Recurso não encontrado"),
     @ApiResponse(code=505, message="Exceção interna da aplicação"),
     })
-	public PedidoDTO inserirPedido(@RequestBody PedidoInserirDTO novoPedido){
+	public PedidoDTO inserirPedido(@RequestBody PedidoInserirDTO novoPedido) throws ClienteNotFoundException, ProdutoNotFoundException{
 		return pedidoService.save(novoPedido);
 	}
 }

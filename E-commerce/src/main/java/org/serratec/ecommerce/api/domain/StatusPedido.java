@@ -2,8 +2,6 @@ package org.serratec.ecommerce.api.domain;
 
 import java.util.stream.Stream;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-
 public enum StatusPedido {
 	CONFIRMADO("C"), ENVIADO("E"), RECEBIDO("R"), CANCELADO("A");
 
