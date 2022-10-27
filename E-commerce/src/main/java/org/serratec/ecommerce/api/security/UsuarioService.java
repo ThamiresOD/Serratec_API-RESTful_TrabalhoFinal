@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,9 @@ public class UsuarioService {
 
 	@Autowired
 	private PerfilService perfilService;
+	
+	@Autowired
+	BCryptPasswordEncoder encoder;
 
 	public List<UsuarioDTO> findAll() {
 		List<Usuario> usuarios = usuarioRepository.findAll();
@@ -38,7 +42,8 @@ public class UsuarioService {
 		Usuario usuario = new Usuario();
 		usuario.setNome(user.getNome());
 		usuario.setEmail(user.getEmail());
-		usuario.setSenha(user.getSenha());
+		usuario.setSenha(encoder.encode(user.getSenha()));
+
 		Set<UsuarioPerfil> perfis = new HashSet<>();
 		for (Perfil perfil : user.getPerfis()) {
 			perfil = perfilService.buscar(perfil.getId());
