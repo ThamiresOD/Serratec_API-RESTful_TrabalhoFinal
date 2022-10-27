@@ -1,8 +1,6 @@
 package org.serratec.ecommerce.api.domain;
 
-import org.serratec.ecommerce.api.exception.EnumValidationException;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
+import java.util.stream.Stream;
 
 public enum StatusPedido {
 	CONFIRMADO("C"), ENVIADO("E"), RECEBIDO("R"), CANCELADO("A");
@@ -21,13 +19,11 @@ public enum StatusPedido {
 		this.codigo = codigo;
 	}
 
-	@JsonCreator
-	public static StatusPedido verifica(String codigo) throws EnumValidationException {
-		for (StatusPedido s : StatusPedido.values()) {
-			if (s.getCodigo() == codigo) {
-				return s;
-			}
-		}
-		throw new EnumValidationException("Categoria" + codigo + " não existe");
+	
+	public static StatusPedido verifica(String codigo) throws IllegalArgumentException {
+		return Stream.of(StatusPedido.values())
+				.filter( s -> s.getCodigo().equals(codigo))
+				.findFirst()
+				.orElseThrow(IllegalArgumentException::new);
 	}
 }

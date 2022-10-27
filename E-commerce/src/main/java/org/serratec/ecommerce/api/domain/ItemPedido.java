@@ -13,10 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.serratec.ecommerce.api.domain.dto.ItemInserirDTO;
+
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity
-@Table(name = "itemPedido")
+@Table(name = "pedido_item")
 public class ItemPedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -74,7 +76,15 @@ public class ItemPedido {
 		this.produto = produto;
 		this.pedido = pedido;
 	}
-
+	public ItemPedido(ItemInserirDTO itemDTO, Double valorBruto, Double valorLiquido, Produto produto) {
+		this.quantidade=itemDTO.getQuantidade();
+		this.percentualDesconto=itemDTO.getPercentualDesconto();
+		this.produto=produto;
+		this.precoVenda=valorLiquido;
+		this.valorBruto=valorBruto;
+		this.valorLiquido=valorLiquido;
+		
+	}
 	public Long getId() {
 		return id;
 	}
