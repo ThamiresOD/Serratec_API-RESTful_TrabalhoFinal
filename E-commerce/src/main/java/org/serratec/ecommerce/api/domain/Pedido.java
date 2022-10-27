@@ -40,7 +40,6 @@ public class Pedido {
 	@Column(name = "ped_dt_data_envio")
 	private LocalDate dataEnvio;
 
-	@NotBlank(message = "Preencha o status")
 	@ApiModelProperty(value = "Status do pedido")
 	@Column(name = "ped_tx_status", length = 1, nullable = false)
 	private StatusPedido status = StatusPedido.CONFIRMADO;
@@ -70,12 +69,12 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
-	public Pedido(PedidoInserirDTO novoPedido, Double valorTotal) {
+	public Pedido(PedidoInserirDTO novoPedido, Double valorTotal, Cliente cliente) {
 		this.dataPedido = novoPedido.getDataPedido();
 		this.dataEnvio = novoPedido.getDataEnvio();
 		this.dataEntrega = novoPedido.getDataEntrega();
 		this.status = novoPedido.getStatus();
-		this.cliente = novoPedido.getCliente();
+		this.cliente = cliente;
 		this.valorTotal = valorTotal;
 
 	}

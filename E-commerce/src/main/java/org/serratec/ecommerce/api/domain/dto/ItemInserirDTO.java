@@ -1,21 +1,19 @@
 package org.serratec.ecommerce.api.domain.dto;
 
-import org.serratec.ecommerce.api.domain.Produto;
-
 public class ItemInserirDTO {
 	private Integer quantidade;
 	private Double percentualDesconto;
-	private Produto produto;
+	private Long idProduto;
 
 	public ItemInserirDTO() {
 		super();
 	}
 
-	public ItemInserirDTO(Integer quantidade, Double percentualDesconto, Produto produto) {
+	public ItemInserirDTO(Integer quantidade, Double percentualDesconto, Long idProduto) {
 		super();
 		this.quantidade = quantidade;
 		this.percentualDesconto = percentualDesconto;
-		this.produto = produto;
+		this.idProduto = idProduto;
 	}
 
 	public Integer getQuantidade() {
@@ -34,12 +32,12 @@ public class ItemInserirDTO {
 		this.percentualDesconto = percentualDesconto;
 	}
 
-	public Produto getProduto() {
-		return produto;
+	public Long getIdProduto() {
+		return idProduto;
 	}
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
+	public void setIdProduto(Long idProduto) {
+		this.idProduto = idProduto;
 	}
 
 }

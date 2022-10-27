@@ -76,10 +76,10 @@ public class ItemPedido {
 		this.produto = produto;
 		this.pedido = pedido;
 	}
-	public ItemPedido(ItemInserirDTO itemDTO, Double valorBruto, Double valorLiquido) {
+	public ItemPedido(ItemInserirDTO itemDTO, Double valorBruto, Double valorLiquido, Produto produto) {
 		this.quantidade=itemDTO.getQuantidade();
 		this.percentualDesconto=itemDTO.getPercentualDesconto();
-		this.produto=itemDTO.getProduto();
+		this.produto=produto;
 		this.precoVenda=valorLiquido;
 		this.valorBruto=valorBruto;
 		this.valorLiquido=valorLiquido;

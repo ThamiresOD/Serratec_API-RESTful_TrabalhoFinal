@@ -24,6 +24,16 @@ public class ProdutoInserirDTO {
 		produto.setCategoria(this.categoria);
 	}
 
+	public Produto atualizar(long id, ProdutoRepository prodRepo) {
+		Produto produto = prodRepo.getReferenceById(id);
+		produto.setNomeProduto(this.nome);
+		produto.setDescricaoProduto(this.descricao);
+		produto.setQuantidadeEstoqueProduto(this.qtdEstoque);
+		produto.setValorUnitarioProduto(this.valorUnitario);
+		produto.setCategoria(this.categoria);
+
+		return produto;
+	}
 	
 	public String getNome() {
 		return nome;
@@ -65,15 +75,6 @@ public class ProdutoInserirDTO {
 		this.categoria = categoria;
 	}
 
-	public Produto atualizar(long id, ProdutoRepository prodRepo) {
-		Produto produto = prodRepo.getReferenceById(id);
-		produto.setNomeProduto(this.nome);
-		produto.setDescricaoProduto(this.descricao);
-		produto.setQuantidadeEstoqueProduto(this.qtdEstoque);
-		produto.setValorUnitarioProduto(this.valorUnitario);
-		produto.setCategoria(this.categoria);
 
-		return produto;
-	}
 
 }

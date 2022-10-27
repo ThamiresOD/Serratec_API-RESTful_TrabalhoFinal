@@ -21,7 +21,7 @@ public enum StatusPedido {
 		this.codigo = codigo;
 	}
 
-	@JsonCreator
+	
 	public static StatusPedido verifica(String codigo) throws IllegalArgumentException {
 		return Stream.of(StatusPedido.values())
 				.filter( s -> s.getCodigo().equals(codigo))

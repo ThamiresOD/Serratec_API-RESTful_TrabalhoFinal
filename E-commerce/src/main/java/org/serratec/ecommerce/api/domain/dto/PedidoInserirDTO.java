@@ -3,8 +3,6 @@ package org.serratec.ecommerce.api.domain.dto;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.serratec.ecommerce.api.domain.Cliente;
-import org.serratec.ecommerce.api.domain.Pedido;
 import org.serratec.ecommerce.api.domain.StatusPedido;
 
 public class PedidoInserirDTO {
@@ -12,24 +10,17 @@ public class PedidoInserirDTO {
 	private LocalDate dataEntrega;
 	private LocalDate dataEnvio;
 	private StatusPedido status;
-	private Cliente cliente;
+	private Long idCliente;
 	private List<ItemInserirDTO> items;
 
-	public PedidoInserirDTO(Pedido pedido) {
-		this.dataPedido=pedido.getDataPedido();
-		this.dataEntrega=pedido.getDataEntrega();
-		this.dataEnvio=pedido.getDataEnvio();
-		this.status=pedido.getStatus();
-		this.cliente=pedido.getCliente();
-	}
 	public PedidoInserirDTO(LocalDate dataPedido, LocalDate dataEntrega, LocalDate dataEnvio, StatusPedido status,
-			Cliente cliente, List<ItemInserirDTO> items) {
+			Long idCliente, List<ItemInserirDTO> items) {
 		super();
 		this.dataPedido = dataPedido;
 		this.dataEntrega = dataEntrega;
 		this.dataEnvio = dataEnvio;
 		this.status = status;
-		this.cliente = cliente;
+		this.idCliente = idCliente;
 		this.items = items;
 	}
 
@@ -64,15 +55,17 @@ public class PedidoInserirDTO {
 	public StatusPedido getStatus() {
 		return status;
 	}
+
 	public void setStatus(StatusPedido status) {
 		this.status = status;
 	}
-	public Cliente getCliente() {
-		return cliente;
+
+	public Long getIdCliente() {
+		return idCliente;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setIdCliente(Long idCliente) {
+		this.idCliente = idCliente;
 	}
 
 	public List<ItemInserirDTO> getItems() {
