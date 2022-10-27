@@ -7,7 +7,9 @@ import java.util.Optional;
 import org.serratec.ecommerce.api.domain.ItemPedido;
 import org.serratec.ecommerce.api.domain.Pedido;
 import org.serratec.ecommerce.api.domain.dto.ItemDTO;
+import org.serratec.ecommerce.api.domain.dto.ItemInserirDTO;
 import org.serratec.ecommerce.api.domain.dto.PedidoDTO;
+import org.serratec.ecommerce.api.domain.dto.PedidoInserirDTO;
 import org.serratec.ecommerce.api.repository.ItemPedidoRepository;
 import org.serratec.ecommerce.api.repository.PedidoRepository;
 import org.serratec.ecommerce.api.repository.ProdutoRepository;
@@ -48,4 +50,20 @@ public class PedidoService {
 		}
 		return pedidoDTO;
 			}
+	
+	public PedidoDTO save(PedidoInserirDTO novoPedido) {
+		Double valorTotal, valorBruto,valorLiquido;
+		List<ItemPedido> itemsDB;
+		for(ItemInserirDTO item : novoPedido.getItems()) {
+			valorBruto = item.getProduto().getValorUnitarioProduto();
+			valorLiquido = valorBruto * item.getQuantidade();
+			valorLiquido= valorLiquido * item.getPercentualDesconto();
+			valorTotal+= valorLiquido;
+			
+			ItemPedido novoItem = new ItemPedido(item, valorBruto, valorLiquido);
+			itemsDB.add(novoItem);
+		}
+		
+		Pedido pedidoDB = new Pedido(novoPedido);
+	}
 }

@@ -1,26 +1,30 @@
 package org.serratec.ecommerce.api.domain.dto;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.serratec.ecommerce.api.domain.Cliente;
 import org.serratec.ecommerce.api.domain.Pedido;
 import org.serratec.ecommerce.api.domain.StatusPedido;
 
-public class PedidoDTO {
-	private Long idPedido;
+public class PedidoInserirDTO {
 	private LocalDate dataPedido;
 	private LocalDate dataEntrega;
 	private LocalDate dataEnvio;
 	private StatusPedido status;
 	private Cliente cliente;
-	private List<ItemDTO> items = new ArrayList<>();
+	private List<ItemInserirDTO> items;
 
-	public PedidoDTO(Long idPedido, LocalDate dataPedido, LocalDate dataEntrega, LocalDate dataEnvio,
-			StatusPedido status, Cliente cliente, List<ItemDTO> items) {
+	public PedidoInserirDTO(Pedido pedido) {
+		this.dataPedido=pedido.getDataPedido();
+		this.dataEntrega=pedido.getDataEntrega();
+		this.dataEnvio=pedido.getDataEnvio();
+		this.status=pedido.getStatus();
+		this.cliente=pedido.getCliente();
+	}
+	public PedidoInserirDTO(LocalDate dataPedido, LocalDate dataEntrega, LocalDate dataEnvio, StatusPedido status,
+			Cliente cliente, List<ItemInserirDTO> items) {
 		super();
-		this.idPedido = idPedido;
 		this.dataPedido = dataPedido;
 		this.dataEntrega = dataEntrega;
 		this.dataEnvio = dataEnvio;
@@ -28,26 +32,9 @@ public class PedidoDTO {
 		this.cliente = cliente;
 		this.items = items;
 	}
-	
-	public PedidoDTO(Pedido pedido) {
-		this.idPedido=pedido.getId();
-		this.dataPedido=pedido.getDataPedido();
-		this.dataEntrega=pedido.getDataEntrega();
-		this.dataEnvio=pedido.getDataEnvio();
-		this.status=pedido.getStatus();
-		this.cliente=pedido.getCliente();		
-	}
 
-	public PedidoDTO() {
+	public PedidoInserirDTO() {
 		super();
-	}
-	
-	public Long getIdPedido() {
-		return idPedido;
-	}
-
-	public void setIdPedido(Long idPedido) {
-		this.idPedido = idPedido;
 	}
 
 	public LocalDate getDataPedido() {
@@ -77,11 +64,9 @@ public class PedidoDTO {
 	public StatusPedido getStatus() {
 		return status;
 	}
-
 	public void setStatus(StatusPedido status) {
 		this.status = status;
 	}
-
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -90,15 +75,12 @@ public class PedidoDTO {
 		this.cliente = cliente;
 	}
 
-	public List<ItemDTO> getItems() {
+	public List<ItemInserirDTO> getItems() {
 		return items;
 	}
 
-	public void setItems(List<ItemDTO> items) {
+	public void setItems(List<ItemInserirDTO> items) {
 		this.items = items;
 	}
-	
-	public void addItems(ItemDTO item) {
-		this.items.add(item);
-	}
+
 }
