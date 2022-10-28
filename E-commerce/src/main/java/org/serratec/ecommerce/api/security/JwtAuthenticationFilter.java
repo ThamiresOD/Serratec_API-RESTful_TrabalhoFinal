@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.serratec.ecommerce.api.security.LoginDTO;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -30,12 +31,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
 		try {
-			LoginDTO login = new ObjectMapper().readValue(request.getInputStream(), LoginDTO.class); //Linha onde está o erro
+			LoginDTO login = new ObjectMapper().readValue(request.getInputStream(), LoginDTO.class);
 			UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(login.getUsername(),
 					login.getPassword(), new ArrayList<>());
 			Authentication auth = authenticationManager.authenticate(authToken);
 			return auth;
-
 		} catch (IOException e) {
 			throw new RuntimeException("Falha ao autenticar usuário", e);
 		}

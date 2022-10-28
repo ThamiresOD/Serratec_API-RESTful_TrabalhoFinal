@@ -1,7 +1,7 @@
 
 
 INSERT INTO usuario (nome, email, senha) VALUES
-	('Turma08', 'aMelhorTurma4ever@gmail.com', '$2a$12$WHqn.RUY/LdpbNCdvEJVaubQXTJK6XDwTXq5swKcsKvs5MmIDcnHy'), --senha
+	('Turma08', 'aMelhorTurma4ever@gmail.com', '$2a$12$sPPV9up/RlaZGUBA1AU7ju66f4o.eNSGhhCaWUdr4rnvDZ.QjaMtK'), --senha /123456
 	('Green Reaper', 'donamorte@gmail.com', '$2a$12$sPPV9up/RlaZGUBA1AU7ju66f4o.eNSGhhCaWUdr4rnvDZ.QjaMtK'); --123456
 
 INSERT INTO perfil (nome) VALUES

@@ -13,6 +13,7 @@ import io.jsonwebtoken.security.Keys;
 
 @Component
 public class JwtUtil {
+
 	@Value("${auth.jwt-secret}")
 	private String jwtSecret;
 	@Value("${auth.jwt-expiration-miliseg}")
@@ -20,8 +21,10 @@ public class JwtUtil {
 
 	public String generateToken(String username) {
 		SecretKey secretKeySpec = Keys.hmacShaKeyFor(jwtSecret.getBytes());
-		return Jwts.builder().setSubject(username)
-				.setExpiration(new Date(System.currentTimeMillis() + this.jwtExpirationMiliseg)).signWith(secretKeySpec)
+		return Jwts.builder()
+				.setSubject(username)
+				.setExpiration(new Date(System.currentTimeMillis() + this.jwtExpirationMiliseg))
+				.signWith(secretKeySpec)
 				.compact();
 	}
 
@@ -46,12 +49,16 @@ public class JwtUtil {
 		return null;
 	}
 
-	@SuppressWarnings("deprecation")
 	private Claims getClaims(String token) {
 		try {
-			return Jwts.parser().setSigningKey(jwtSecret.getBytes()).parseClaimsJws(token).getBody();
+			return Jwts
+					.parser()
+					.setSigningKey(jwtSecret.getBytes())
+					.parseClaimsJws(token)
+					.getBody();
 		} catch (Exception e) {
 			return null;
 		}
 	}
+
 }

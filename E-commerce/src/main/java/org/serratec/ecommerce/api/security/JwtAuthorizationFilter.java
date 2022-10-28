@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
+
 	private JwtUtil jwtUtil;
 	private UserDetailsService userDetailsService;
 
@@ -25,7 +26,15 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		this.userDetailsService = userDetailsService;
 	}
 
-	@Override
+	private UsernamePasswordAuthenticationToken getAuthentication(String token) {
+		if (jwtUtil.isValidToken(token)) {
+			String username = jwtUtil.getUsername(token);
+			UserDetails user = userDetailsService.loadUserByUsername(username);
+			return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+		}
+		return null;
+	}
+
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		String header = request.getHeader("Authorization");
@@ -38,12 +47,4 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		chain.doFilter(request, response);
 	}
 
-	private UsernamePasswordAuthenticationToken getAuthentication(String token) {
-		if (jwtUtil.isValidToken(token)) {
-			String username = jwtUtil.getUsername(token);
-			UserDetails user = userDetailsService.loadUserByUsername(username);
-			return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-		}
-		return null;
-	}
 }
