@@ -1,7 +1,17 @@
 package org.serratec.ecommerce.api.security;
 
+import javax.validation.constraints.NotBlank;
+
+import io.swagger.annotations.ApiModelProperty;
+
 public class LoginDTO {
+
+	@NotBlank
+	@ApiModelProperty(value="Login do usuário")
 	private String username;
+
+	@NotBlank
+	@ApiModelProperty(value="Password do usuário")
 	private String password;
 
 	public String getUsername() {

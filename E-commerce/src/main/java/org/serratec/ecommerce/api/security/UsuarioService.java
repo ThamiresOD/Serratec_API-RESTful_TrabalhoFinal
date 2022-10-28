@@ -6,6 +6,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.serratec.ecommerce.api.security.Perfil;
+import org.serratec.ecommerce.api.security.Usuario;
+import org.serratec.ecommerce.api.security.UsuarioPerfil;
+import org.serratec.ecommerce.api.security.UsuarioDTO;
+import org.serratec.ecommerce.api.security.UsuarioInserirDTO;
+import org.serratec.ecommerce.api.security.EmailException;
+import org.serratec.ecommerce.api.security.SenhaException;
+import org.serratec.ecommerce.api.security.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,24 +21,30 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UsuarioService {
+
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
 	@Autowired
-	private PerfilService perfilService;
+	PerfilService perfilService;
 	
 	@Autowired
 	BCryptPasswordEncoder encoder;
-
+	
 	public List<UsuarioDTO> findAll() {
 		List<Usuario> usuarios = usuarioRepository.findAll();
-		List<UsuarioDTO> usuariosDTO = new ArrayList<UsuarioDTO>();
+		List<UsuarioDTO> usuarioDTOs = new ArrayList<>();
 		for (Usuario usuario : usuarios) {
-			usuariosDTO.add(new UsuarioDTO(usuario));
+			usuarioDTOs.add(new UsuarioDTO(usuario));
 		}
-		return usuariosDTO;
+		return usuarioDTOs;
 	}
 
+	
+	public BCryptPasswordEncoder bCryptPasswordEncoder(){
+		return new BCryptPasswordEncoder();
+	}
+	
 	@Transactional
 	public UsuarioDTO inserir(UsuarioInserirDTO user) throws EmailException {
 		if (!user.getSenha().equalsIgnoreCase(user.getConfirmaSenha())) {
@@ -42,8 +56,7 @@ public class UsuarioService {
 		Usuario usuario = new Usuario();
 		usuario.setNome(user.getNome());
 		usuario.setEmail(user.getEmail());
-		usuario.setSenha(encoder.encode(user.getSenha()));
-
+		usuario.setSenha(bCryptPasswordEncoder().encode(user.getSenha()));
 		Set<UsuarioPerfil> perfis = new HashSet<>();
 		for (Perfil perfil : user.getPerfis()) {
 			perfil = perfilService.buscar(perfil.getId());

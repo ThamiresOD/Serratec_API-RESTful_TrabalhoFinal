@@ -66,8 +66,6 @@ public class ConfigSeguranca extends WebSecurityConfigurerAdapter {
 		http.addFilter(new JwtAuthorizationFilter(this.authenticationManager(), jwtUtil, userDetailsService));
 	}
 	
-	//configuracao do CORS
-	
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration corsConfiguration = new CorsConfiguration();

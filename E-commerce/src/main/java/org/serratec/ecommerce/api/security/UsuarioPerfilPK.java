@@ -7,16 +7,17 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.serratec.ecommerce.api.security.Perfil;
+import org.serratec.ecommerce.api.security.Usuario;
+
 @Embeddable
 public class UsuarioPerfilPK implements Serializable {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
+	
 	@ManyToOne
 	@JoinColumn(name = "id_perfil")
 	private Perfil perfil;
@@ -37,10 +38,6 @@ public class UsuarioPerfilPK implements Serializable {
 		this.perfil = perfil;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(perfil, usuario);
@@ -57,4 +54,5 @@ public class UsuarioPerfilPK implements Serializable {
 		UsuarioPerfilPK other = (UsuarioPerfilPK) obj;
 		return Objects.equals(perfil, other.perfil) && Objects.equals(usuario, other.usuario);
 	}
+
 }

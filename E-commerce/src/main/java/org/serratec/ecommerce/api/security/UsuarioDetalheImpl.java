@@ -1,5 +1,8 @@
 package org.serratec.ecommerce.api.security;
 
+import org.serratec.ecommerce.api.security.Usuario;
+import org.serratec.ecommerce.api.security.UsuarioRepository;
+import org.serratec.ecommerce.api.security.UsuarioDetalhe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -7,10 +10,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UsuarioDetalheService implements UserDetailsService {
-
+public class UsuarioDetalheImpl implements UserDetailsService {
 	@Autowired
-	UsuarioRepository usuarioRepository;
+	private UsuarioRepository usuarioRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

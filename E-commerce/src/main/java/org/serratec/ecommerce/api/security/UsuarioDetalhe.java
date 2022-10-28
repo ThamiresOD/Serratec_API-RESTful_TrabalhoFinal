@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class UsuarioDetalhe implements UserDetails {
+
 	/**
 	 * 
 	 */
@@ -25,38 +26,45 @@ public class UsuarioDetalhe implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		for (UsuarioPerfil usuarioPerfil : usuario.getUsuarioPerfis()) {
-			authorities.add(new SimpleGrantedAuthority(usuarioPerfil.getId().getPerfil().getNome()));
+			authorities.add(new SimpleGrantedAuthority(usuarioPerfil.getId().getPerfil().getTipo()));
 		}
 		return authorities;
 	}
 
 	@Override
 	public String getPassword() {
+		
 		return usuario.getSenha();
 	}
 
 	@Override
 	public String getUsername() {
+	
 		return usuario.getEmail();
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		return false;
+		
+		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		return false;
+	
+		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		return false;
+	
+		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return false;
+			
+		return true;
 	}
+
 }
