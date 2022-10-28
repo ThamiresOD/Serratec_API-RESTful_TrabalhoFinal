@@ -4,6 +4,7 @@ import org.serratec.ecommerce.api.domain.ItemPedido;
 import org.serratec.ecommerce.api.domain.Produto;
 
 public class ItemDTO {
+	Long idItem;
 	Integer quantidade;
 	Double precoVenda;
 	Double percentualDesconto;
@@ -11,9 +12,10 @@ public class ItemDTO {
 	Double valorLiquido;
 	Produto produto;
 
-	public ItemDTO(Integer quantidade, Double precoVenda, Double percentualDesconto, Double valorBruto,
+	public ItemDTO(Long idItem, Integer quantidade, Double precoVenda, Double percentualDesconto, Double valorBruto,
 			Double valorLiquido, Produto produto) {
 		super();
+		this.idItem = idItem;
 		this.quantidade = quantidade;
 		this.precoVenda = precoVenda;
 		this.percentualDesconto = percentualDesconto;
@@ -23,6 +25,7 @@ public class ItemDTO {
 	}
 	
 	public ItemDTO(ItemPedido itemPedido) {
+		this.idItem  = itemPedido.getId();
 		this.quantidade=itemPedido.getQuantidade();
 		this.precoVenda=itemPedido.getPrecoVenda();
 		this.percentualDesconto=itemPedido.getPercentualDesconto();
@@ -30,9 +33,31 @@ public class ItemDTO {
 		this.valorLiquido=itemPedido.getValorLiquido();
 		this.produto=itemPedido.getProduto();
 	}
+	
+	
+	
+	@Override
+	public String toString() {
+		return "\n------------------------------" + 
+				"\n " + produto.getNomeProduto() + " :" +
+				"\nQuantidade: " + quantidade.toString() +
+				"\nValor Unitário: " + valorBruto/quantidade + 
+				"\nValor Bruto: " + valorBruto + 
+				"\nDesconto: " + percentualDesconto*100 + "%"+
+				"\nValor Total: " + valorLiquido;
+	} 
 
 	public ItemDTO() {
 		super();
+	}
+
+	
+	public Long getIdItem() {
+		return idItem;
+	}
+
+	public void setIdItem(Long idItem) {
+		this.idItem = idItem;
 	}
 
 	public Integer getQuantidade() {

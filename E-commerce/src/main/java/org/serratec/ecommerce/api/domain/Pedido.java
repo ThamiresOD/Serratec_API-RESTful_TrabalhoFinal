@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.serratec.ecommerce.api.domain.dto.PedidoDTO;
 import org.serratec.ecommerce.api.domain.dto.PedidoInserirDTO;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -69,6 +70,15 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
+	public Pedido(PedidoDTO pedidoDTO, Double valorTotal) {
+		this.id = pedidoDTO.getIdPedido();
+		this.cliente = pedidoDTO.getCliente();
+		this.dataEntrega = pedidoDTO.getDataEntrega();
+		this.dataEnvio = pedidoDTO.getDataEnvio();
+		this.dataPedido = pedidoDTO.getDataPedido();
+		this.status = pedidoDTO.getStatus();
+		this.valorTotal = valorTotal;
+	}
 	public Pedido(PedidoInserirDTO novoPedido, Double valorTotal, Cliente cliente) {
 		this.dataPedido = novoPedido.getDataPedido();
 		this.dataEnvio = novoPedido.getDataEnvio();
