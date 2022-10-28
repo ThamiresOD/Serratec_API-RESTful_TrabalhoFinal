@@ -8,8 +8,6 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.serratec.ecommerce.api.security.UsuarioPerfilPK;
-
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity

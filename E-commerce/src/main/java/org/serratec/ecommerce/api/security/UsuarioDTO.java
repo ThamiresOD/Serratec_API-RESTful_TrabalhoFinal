@@ -5,10 +5,6 @@ import java.util.Set;
 
 import javax.validation.constraints.NotBlank;
 
-import org.serratec.ecommerce.api.security.Perfil;
-import org.serratec.ecommerce.api.security.Usuario;
-import org.serratec.ecommerce.api.security.UsuarioPerfil;
-
 import io.swagger.annotations.ApiModelProperty;
 
 

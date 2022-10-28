@@ -1,8 +1,5 @@
 package org.serratec.ecommerce.api.security;
 
-import org.serratec.ecommerce.api.security.Usuario;
-import org.serratec.ecommerce.api.security.UsuarioRepository;
-import org.serratec.ecommerce.api.security.UsuarioDetalhe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

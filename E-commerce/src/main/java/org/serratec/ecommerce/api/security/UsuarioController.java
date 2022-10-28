@@ -3,10 +3,6 @@ package org.serratec.ecommerce.api.security;
 import java.net.URI;
 import java.util.List;
 
-import org.serratec.ecommerce.api.security.Usuario;
-import org.serratec.ecommerce.api.security.UsuarioDTO;
-import org.serratec.ecommerce.api.security.UsuarioInserirDTO;
-import org.serratec.ecommerce.api.security.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

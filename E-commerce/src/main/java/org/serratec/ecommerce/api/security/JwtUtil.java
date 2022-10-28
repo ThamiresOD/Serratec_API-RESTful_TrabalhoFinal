@@ -49,6 +49,7 @@ public class JwtUtil {
 		return null;
 	}
 
+	@SuppressWarnings("deprecation")
 	private Claims getClaims(String token) {
 		try {
 			return Jwts

@@ -2,8 +2,6 @@ package org.serratec.ecommerce.api.security;
 
 import java.util.Optional;
 
-import org.serratec.ecommerce.api.security.Perfil;
-import org.serratec.ecommerce.api.security.PerfilRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

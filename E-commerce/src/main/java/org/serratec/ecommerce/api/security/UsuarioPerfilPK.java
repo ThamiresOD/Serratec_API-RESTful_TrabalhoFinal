@@ -7,9 +7,6 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.serratec.ecommerce.api.security.Perfil;
-import org.serratec.ecommerce.api.security.Usuario;
-
 @Embeddable
 public class UsuarioPerfilPK implements Serializable {
 	private static final long serialVersionUID = 1L;

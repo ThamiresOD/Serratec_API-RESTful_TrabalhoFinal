@@ -4,8 +4,6 @@ import java.util.Set;
 
 import javax.validation.constraints.NotBlank;
 
-import org.serratec.ecommerce.api.security.Perfil;
-
 import io.swagger.annotations.ApiModelProperty;
 
 public class UsuarioInserirDTO {

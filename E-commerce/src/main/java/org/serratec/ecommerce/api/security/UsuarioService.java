@@ -6,14 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.serratec.ecommerce.api.security.Perfil;
-import org.serratec.ecommerce.api.security.Usuario;
-import org.serratec.ecommerce.api.security.UsuarioPerfil;
-import org.serratec.ecommerce.api.security.UsuarioDTO;
-import org.serratec.ecommerce.api.security.UsuarioInserirDTO;
-import org.serratec.ecommerce.api.security.EmailException;
-import org.serratec.ecommerce.api.security.SenhaException;
-import org.serratec.ecommerce.api.security.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
