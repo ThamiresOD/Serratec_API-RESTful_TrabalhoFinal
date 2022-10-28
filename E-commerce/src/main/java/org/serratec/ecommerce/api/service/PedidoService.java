@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.serratec.ecommerce.api.config.MailConfig;
 import org.serratec.ecommerce.api.domain.Cliente;
 import org.serratec.ecommerce.api.domain.ItemPedido;
 import org.serratec.ecommerce.api.domain.Pedido;
@@ -11,8 +12,10 @@ import org.serratec.ecommerce.api.domain.Produto;
 import org.serratec.ecommerce.api.domain.dto.ItemDTO;
 import org.serratec.ecommerce.api.domain.dto.ItemInserirDTO;
 import org.serratec.ecommerce.api.domain.dto.PedidoDTO;
+import org.serratec.ecommerce.api.domain.dto.PedidoEmailDTO;
 import org.serratec.ecommerce.api.domain.dto.PedidoInserirDTO;
 import org.serratec.ecommerce.api.exception.ClienteNotFoundException;
+import org.serratec.ecommerce.api.exception.PedidoNotFoundException;
 import org.serratec.ecommerce.api.exception.ProdutoNotFoundException;
 import org.serratec.ecommerce.api.repository.ClienteRepository;
 import org.serratec.ecommerce.api.repository.ItemPedidoRepository;
@@ -31,7 +34,8 @@ public class PedidoService {
 	ProdutoRepository produtoRepository;
 	@Autowired
 	ClienteRepository clienteRepo;
-	
+	@Autowired
+	MailConfig mailConfig;
 	public List<PedidoDTO> findAll(){
 		List<Pedido> pedidosDB = pedidoRepository.findAll();
 		List<PedidoDTO> pedidosDTO = new ArrayList<PedidoDTO>();
@@ -96,6 +100,39 @@ public class PedidoService {
 			itemPedidoRepo.save(itemDB);
 			pedidoRes.addItems(new ItemDTO(itemDB));;
 		}
+		
+		mailConfig.sendMail(cliente.get().getEmail(),"Pedido registrado com sucesso!",
+				new PedidoEmailDTO(pedidoRes.getIdPedido(), pedidoRes.getDataPedido(), pedidoRes.getItems()).toString());
 		return pedidoRes;
 	}
+	
+	
+	public PedidoDTO update(PedidoDTO novoPedido) throws PedidoNotFoundException{
+		Double valorTotal = 0.;
+		Optional<Pedido> pedidoDB = pedidoRepository.findById(novoPedido.getIdPedido());
+
+		if(pedidoDB.isEmpty()) {
+			throw new PedidoNotFoundException(404, "O pedido não foi encontrado!");
+		} 
+		for (ItemDTO item : novoPedido.getItems()) {
+			valorTotal += item.getValorLiquido();
+			itemPedidoRepo.save(new ItemPedido(item, pedidoDB.get()));
+			
+		}
+		pedidoRepository.save(new Pedido(novoPedido, valorTotal));
+		return findById(novoPedido.getIdPedido());
+	}
+	
+	public void delete(Long id) throws PedidoNotFoundException{
+		Optional<Pedido> pedidoDB = pedidoRepository.findById(id);
+		if(pedidoDB.isEmpty()) {
+			throw new PedidoNotFoundException(404, "Pedido não encontrado!");
+		}
+		for (ItemPedido item : itemPedidoRepo.findAllByPedido(pedidoDB.get())) {
+			itemPedidoRepo.delete(item);
+		}
+		pedidoRepository.delete(pedidoDB.get());
+		
+	}
+
 }
