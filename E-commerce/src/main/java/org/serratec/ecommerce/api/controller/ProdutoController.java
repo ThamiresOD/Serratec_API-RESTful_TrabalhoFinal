@@ -47,7 +47,7 @@ public class ProdutoController {
 	
 	@GetMapping
 	@Cacheable(value = "listaDeProdutos")
-	@ApiOperation(value = "Listagem de todos os produtos")
+	@ApiOperation(value = "Listagem de todos os produtos cadastrados")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna a lista de produtos"),
 			@ApiResponse(code = 401, message = "Erro de autenticação"),
 			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
@@ -61,7 +61,7 @@ public class ProdutoController {
 	@GetMapping("/{id}")
 	@Cacheable(value = "produtosPorId")
 	@ApiOperation(value = "Busca de produto por ID")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna produto especifico"),
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna produto específico"),
 			@ApiResponse(code = 401, message = "Erro de autenticação"),
 			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
@@ -74,7 +74,7 @@ public class ProdutoController {
 	
 	@GetMapping("/url")
 	@Cacheable(value = "produtosProdutosComUrl")
-	@ApiOperation(value = "Listagem de todos os produtos com url")
+	@ApiOperation(value = "Listagem de todos os produtos com url cadastrados")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna a lista de produtos com url"),
 			@ApiResponse(code = 401, message = "Erro de autenticação"),
 			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
@@ -88,11 +88,11 @@ public class ProdutoController {
 	@PutMapping("/{id}")
 	@Transactional
 	@CacheEvict(value = "listaDeProdutos", allEntries = true)
-	@ApiOperation(value = "Update categoria específica")
+	@ApiOperation(value = "Update produto por ID")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna alteração realizada"),
 			@ApiResponse(code = 401, message = "Erro de autenticação"),
 			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
-			@ApiResponse(code = 404, message = "Cliente não encontrado"),
+			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 505, message = "Exceção interna da aplicação"), })
 	public ResponseEntity<ProdutoDTO> atualizar(@PathVariable Long id, @RequestBody ProdutoInserirDTO form) 
 	throws ProdutoNotFoundException{
@@ -102,28 +102,28 @@ public class ProdutoController {
 	@PostMapping("/noimg")
 	@CacheEvict(value = "listaDeProdutos", allEntries = true)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	@ApiOperation(value="Inserção de Produto sem imagem")
+	@ApiOperation(value="Inserção de produto(s) sem imagem  TESTAR")
     @ApiResponses(value= {
-    @ApiResponse(code=201, message="Produto criado com sucesso"),
-    @ApiResponse(code=401, message="Erro de autenticação"),
-    @ApiResponse(code=403, message="Não há permissão para acessar o recurso"),
-    @ApiResponse(code=404, message="Recurso não encontrado"),
-    @ApiResponse(code=505, message="Exceção interna da aplicação"),
-    })
+    		@ApiResponse(code = 200, message = "Inclui produto(s)"),
+			@ApiResponse(code = 201, message = "Produto(s) criada com sucesso"),
+			@ApiResponse(code = 401, message = "Erro de autenticação"),
+			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
+			@ApiResponse(code = 404, message = "Recurso não encontrado"),
+			@ApiResponse(code = 505, message = "Exceção interna da aplicação"), })
 	public ProdutoDTO inserir(@RequestBody ProdutoInserirDTO novoProduto) {
 		return produtoService.inserir(novoProduto);
 	}
 	
 	@PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
 	@CacheEvict(value = "listaDeProdutos", allEntries = true)
-	@ApiOperation(value="Inserção de Produto/imagem")
+	@ApiOperation(value="Inserção de produto com imagem  TESTAR")
     @ApiResponses(value= {
-    @ApiResponse(code=201, message="Produto criado com sucesso"),
-    @ApiResponse(code=401, message="Erro de autenticação"),
-    @ApiResponse(code=403, message="Não há permissão para acessar o recurso"),
-    @ApiResponse(code=404, message="Recurso não encontrado"),
-    @ApiResponse(code=505, message="Exceção interna da aplicação"),
-    })
+    		@ApiResponse(code = 200, message = "Inclui produto(s)"),
+			@ApiResponse(code = 201, message = "Produto(s) criada com sucesso"),
+			@ApiResponse(code = 401, message = "Erro de autenticação"),
+			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
+			@ApiResponse(code = 404, message = "Recurso não encontrado"),
+			@ApiResponse(code = 505, message = "Exceção interna da aplicação"), })
 	public ProdutoDTO inserir(
 			@RequestPart ProdutoInserirDTO produto,
 			@RequestPart MultipartFile file
@@ -134,8 +134,8 @@ public class ProdutoController {
 	@DeleteMapping("/{id}")
 	@Transactional
 	@CacheEvict(value = "listaDeProdutos", allEntries = true)
-	@ApiOperation(value = "Busca de produto por id")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna produto especifico"),
+	@ApiOperation(value = "Remoção de produto por ID")
+	@ApiResponses(value = { @ApiResponse(code = 204, message = "Produto específico removido"),
 			@ApiResponse(code = 401, message = "Erro de autenticação"),
 			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
@@ -148,8 +148,8 @@ public class ProdutoController {
 
 	@GetMapping("/{id}/foto")
 	@Cacheable(value = "produtosProdutosComFoto")
-	@ApiOperation(value = "Listagem de todos os produtos com foto - VERIFICAR")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna a lista de produtos com url"),
+	@ApiOperation(value = "Listagem de todos os produtos com foto cadastrados  TESTAR E RENOMEAR")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna a lista de produtos com imagem"),
 			@ApiResponse(code = 401, message = "Erro de autenticação"),
 			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),

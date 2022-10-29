@@ -40,8 +40,9 @@ public class CategoryController {
 
 	@GetMapping
 	@Cacheable(value = "listaDeCategorias")
-	@ApiOperation(value = "Listagem de todos as categorias")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna a lista de categorias"),
+	@ApiOperation(value = "Listagem de todas as categorias cadastradas")
+	@ApiResponses(value = { 
+			@ApiResponse(code = 200, message = "Retorna a lista de categorias"),
 			@ApiResponse(code = 401, message = "Erro de autenticação"),
 			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
@@ -54,8 +55,9 @@ public class CategoryController {
 
 	@GetMapping("/{id}")
 	@Cacheable(value = "categoriaPorId")
-	@ApiOperation(value = "Busca de Categoria por ID")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna Categoria especifica"),
+	@ApiOperation(value = "Busca de categoria por ID")
+	@ApiResponses(value = { 
+			@ApiResponse(code = 200, message = "Retorna a categoria específica"),
 			@ApiResponse(code = 401, message = "Erro de autenticação"),
 			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
@@ -70,8 +72,10 @@ public class CategoryController {
 
 	@PostMapping
 	@CacheEvict(value = "listaDeCategorias", allEntries = true)
-	@ApiOperation(value = "Inclusão de categorias")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Inclui categorias"),
+	@ApiOperation(value = "Inclusão de categoria(s)")
+	@ApiResponses(value = { 
+			@ApiResponse(code = 200, message = "Inclui categoria(s)"),
+			@ApiResponse(code = 201, message = "Categoria(s) criada com sucesso"),
 			@ApiResponse(code = 401, message = "Erro de autenticação"),
 			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
@@ -86,11 +90,12 @@ public class CategoryController {
 	@PutMapping("/{id}")
 	@Transactional
 	@CacheEvict(value = "listaDeCategorias", allEntries = true)
-	@ApiOperation(value = "Update categoria específica")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna alteração realizada"),
+	@ApiOperation(value = "Update categoria por ID")
+	@ApiResponses(value = { 
+			@ApiResponse(code = 200, message = "Retorna alteração realizada"),		
 			@ApiResponse(code = 401, message = "Erro de autenticação"),
 			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
-			@ApiResponse(code = 404, message = "Cliente não encontrado"),
+			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 505, message = "Exceção interna da aplicação"), })
 	public ResponseEntity<CategoriaDTO> atualizar(@PathVariable Long id, @RequestBody CategoriaInserirDTO form) {
 		Optional<Categoria> optional = catRepo.findById(id);
@@ -105,11 +110,12 @@ public class CategoryController {
 	@DeleteMapping("/{id}")
 	@Transactional
 	@CacheEvict(value = "listaDeCategorias", allEntries = true)
-	@ApiOperation(value = "Remoção de Categoria")
-	@ApiResponses(value = { @ApiResponse(code = 204, message = "Categoria removida"),
+	@ApiOperation(value = "Remoção de categoria por ID")
+	@ApiResponses(value = { 
+			@ApiResponse(code = 204, message = "Categoria específica removida"),
 			@ApiResponse(code = 401, message = "Erro de autenticação"),
 			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
-			@ApiResponse(code = 404, message = "Cliente não encontrado"),
+			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 505, message = "Exceção interna da aplicação"), })
 	public ResponseEntity<Void> excluir(@PathVariable Long id) {
 		Optional<Categoria> categoriaBanco = catRepo.findById(id);

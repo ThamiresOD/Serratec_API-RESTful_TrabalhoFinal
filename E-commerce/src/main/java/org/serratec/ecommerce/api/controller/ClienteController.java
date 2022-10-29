@@ -1,5 +1,4 @@
-package org.serratec.ecommerce.api.controller
-;
+package org.serratec.ecommerce.api.controller;
 
 import java.util.List;
 
@@ -32,80 +31,77 @@ import io.swagger.annotations.ApiResponses;
 @RequestMapping("api/clientes")
 public class ClienteController {
 
-	@Autowired 
+	@Autowired
 	ClienteService clienteService;
 
 	@GetMapping
 	@Cacheable(value = "listaDeClientes")
-	@ApiOperation(value="Listagem de todos os clientes")
-    @ApiResponses(value= {
-    @ApiResponse(code=200, message="Retorna a lista de clientes"),
-    @ApiResponse(code=401, message="Erro de autenticação"),
-    @ApiResponse(code=403, message="Não há permissão para acessar o recurso"),
-    @ApiResponse(code=404, message="Recurso não encontrado"),
-    @ApiResponse(code=505, message="Exceção interna da aplicação"),
-    })
-	public ResponseEntity<List<Cliente>> getClientes(){
+	@ApiOperation(value = "Listagem de todos os clientes cadastrados")
+	@ApiResponses(value = { 
+			@ApiResponse(code = 200, message = "Retorna a lista de clientes"),
+			@ApiResponse(code = 401, message = "Erro de autenticação"),
+			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
+			@ApiResponse(code = 404, message = "Recurso não encontrado"),
+			@ApiResponse(code = 505, message = "Exceção interna da aplicação"), })
+	public ResponseEntity<List<Cliente>> getClientes() {
 		return ResponseEntity.ok(clienteService.findAll());
 	}
-	
+
 	@GetMapping("/{id}")
 	@Cacheable(value = "clientePorCpf")
-	@ApiOperation(value="Encontra cliente por cpf")
-    @ApiResponses(value= {
-    @ApiResponse(code=200, message="Retorna a lista de clientes"),
-    @ApiResponse(code=401, message="Erro de autenticação"),
-    @ApiResponse(code=403, message="Não há permissão para acessar o recurso"),
-    @ApiResponse(code=404, message="Cliente não encontrado"),
-    @ApiResponse(code=505, message="Exceção interna da aplicação"),
-    })
-	public ResponseEntity<Cliente> getClienteById(@PathVariable Long id) throws ClienteNotFoundException{
+	@ApiOperation(value = "Busca de cliente por ID")
+	@ApiResponses(value = { 
+			@ApiResponse(code = 200, message = "Retorna o cliente específico"),
+			@ApiResponse(code = 401, message = "Erro de autenticação"),
+			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
+			@ApiResponse(code = 404, message = "Recurso não encontrado"),
+			@ApiResponse(code = 505, message = "Exceção interna da aplicação"), })
+	public ResponseEntity<Cliente> getClienteById(@PathVariable Long id) throws ClienteNotFoundException {
 		return ResponseEntity.ok(clienteService.findById(id));
 	}
-	
+
 	@PostMapping
 	@CacheEvict(value = "listaDeClientes", allEntries = true)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	@ApiOperation(value="Inserção de Cliente")
-    @ApiResponses(value= {
-    @ApiResponse(code=201, message="Cliente criado com sucesso"),
-    @ApiResponse(code=401, message="Erro de autenticação"),
-    @ApiResponse(code=403, message="Não há permissão para acessar o recurso"),
-    @ApiResponse(code=404, message="Recurso não encontrado"),
-    @ApiResponse(code=505, message="Exceção interna da aplicação"),
-    })
-	public Cliente inserirCliente(@RequestBody ClienteInserirDTO novoCliente) throws CpfException, EmailException{
+	@ApiOperation(value = "Inclusão de cliente(s)")
+	@ApiResponses(value = { 
+			@ApiResponse(code = 200, message = "Inclui cliente(s)"),
+			@ApiResponse(code = 201, message = "Cliente(s) criado com sucesso"),
+			@ApiResponse(code = 401, message = "Erro de autenticação"),
+			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
+			@ApiResponse(code = 404, message = "Recurso não encontrado"),
+			@ApiResponse(code = 505, message = "Exceção interna da aplicação"), })
+	public Cliente inserirCliente(@RequestBody ClienteInserirDTO novoCliente) throws CpfException, EmailException {
 		return clienteService.inserir(novoCliente);
-				
+
 	}
 
 	@DeleteMapping("/{id}")
 	@CacheEvict(value = "listaDeClientes", allEntries = true)
-	@ApiOperation(value="Remoção de Cliente")
-    @ApiResponses(value= {
-    @ApiResponse(code=204, message="Cliente removido eletado"),
-    @ApiResponse(code=401, message="Erro de autenticação"),
-    @ApiResponse(code=403, message="Não há permissão para acessar o recurso"),
-    @ApiResponse(code=404, message="Cliente não encontrado"),
-    @ApiResponse(code=505, message="Exceção interna da aplicação"),
-    })
-	public ResponseEntity<Void> deletarCliente(@PathVariable Long id) throws ClienteNotFoundException{ 
+	@ApiOperation(value = "Remoção de Cliente por ID")
+	@ApiResponses(value = { 
+			@ApiResponse(code = 204, message = "Cliente específico removido"),
+			@ApiResponse(code = 401, message = "Erro de autenticação"),
+			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
+			@ApiResponse(code = 404, message = "Recurso não encontrado"),
+			@ApiResponse(code = 505, message = "Exceção interna da aplicação"), })
+	public ResponseEntity<Void> deletarCliente(@PathVariable Long id) throws ClienteNotFoundException {
 		clienteService.deletarCliente(id);
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@PutMapping
 	@CacheEvict(value = "listaDeClientes", allEntries = true)
-	@ApiOperation(value="Update cliente específico")
-    @ApiResponses(value= {
-    @ApiResponse(code=200, message="Retorna a lista de clientes"),
-    @ApiResponse(code=401, message="Erro de autenticação"),
-    @ApiResponse(code=403, message="Não há permissão para acessar o recurso"),
-    @ApiResponse(code=404, message="Cliente não encontrado"),
-    @ApiResponse(code=505, message="Exceção interna da aplicação"),
-    })
-	public ResponseEntity<Cliente> updateCliente(@RequestBody Cliente updateCliente) throws ClienteNotFoundException, CpfException, EmailException{
+	@ApiOperation(value = "Update cliente por ID")
+	@ApiResponses(value = { 
+			@ApiResponse(code = 200, message = "Retorna alteração realizada"),		
+			@ApiResponse(code = 401, message = "Erro de autenticação"),
+			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
+			@ApiResponse(code = 404, message = "Recurso não encontrado"),
+			@ApiResponse(code = 505, message = "Exceção interna da aplicação"), })
+	public ResponseEntity<Cliente> updateCliente(@RequestBody Cliente updateCliente)
+			throws ClienteNotFoundException, CpfException, EmailException {
 		return ResponseEntity.ok(clienteService.updateCliente(updateCliente));
 	}
-	
+
 }

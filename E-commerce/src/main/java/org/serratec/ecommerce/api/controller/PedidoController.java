@@ -32,9 +32,9 @@ public class PedidoController {
 	PedidoService pedidoService;
 	
 	@GetMapping
-	@ApiOperation(value="Listagem de todos os pedidos")
+	@ApiOperation(value="Listagem de todos os pedidos cadastrados")
     @ApiResponses(value= {
-    @ApiResponse(code=200, message="Retorna a lista de clientes"),
+    @ApiResponse(code=200, message="Retorna a lista de pedidos"),
     @ApiResponse(code=401, message="Erro de autenticação"),
     @ApiResponse(code=403, message="Não há permissão para acessar o recurso"),
     @ApiResponse(code=404, message="Recurso não encontrado"),
@@ -45,9 +45,9 @@ public class PedidoController {
 	}
 	
 	@GetMapping("/{id}")
-	@ApiOperation(value="Listagem de todos os pedidos")
+	@ApiOperation(value="Busca de pedido por ID")
     @ApiResponses(value= {
-    @ApiResponse(code=200, message="Retorna a lista de clientes"),
+    @ApiResponse(code=200, message="Retorna o pedido específico"),
     @ApiResponse(code=401, message="Erro de autenticação"),
     @ApiResponse(code=403, message="Não há permissão para acessar o recurso"),
     @ApiResponse(code=404, message="Recurso não encontrado"),
@@ -59,40 +59,38 @@ public class PedidoController {
 	
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	@ApiOperation(value="Criação de novo cliente")
+	@ApiOperation(value="Inclusão de pedido(s)")
     @ApiResponses(value= {
-    @ApiResponse(code=201, message="Retorna o cliente inserido"),
-    @ApiResponse(code=401, message="Erro de autenticação"),
-    @ApiResponse(code=403, message="Não há permissão para acessar o recurso"),
-    @ApiResponse(code=404, message="Recurso não encontrado"),
-    @ApiResponse(code=505, message="Exceção interna da aplicação"),
-    })
+    		@ApiResponse(code = 200, message = "Inclui pedido(s)"),
+			@ApiResponse(code = 201, message = "Pedido(s) criada com sucesso"),
+			@ApiResponse(code = 401, message = "Erro de autenticação"),
+			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
+			@ApiResponse(code = 404, message = "Recurso não encontrado"),
+			@ApiResponse(code = 505, message = "Exceção interna da aplicação"), })
 	public ResponseEntity<PedidoDTO> inserirPedido(@RequestBody PedidoInserirDTO novoPedido) throws ClienteNotFoundException, ProdutoNotFoundException{
 		return ResponseEntity.ok(pedidoService.save(novoPedido));
 	}
 	
 	@PutMapping
-	@ApiOperation(value="Aualização de cliente")
+	@ApiOperation(value="Update de pedido por ID")
     @ApiResponses(value= {
-    @ApiResponse(code=200, message="Retorna cliente atualizado"),
-    @ApiResponse(code=401, message="Erro de autenticação"),
-    @ApiResponse(code=403, message="Não há permissão para acessar o recurso"),
-    @ApiResponse(code=404, message="Recurso não encontrado"),
-    @ApiResponse(code=505, message="Exceção interna da aplicação"),
-    })
+    		@ApiResponse(code = 200, message = "Retorna alteração realizada"),		
+			@ApiResponse(code = 401, message = "Erro de autenticação"),
+			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
+			@ApiResponse(code = 404, message = "Recurso não encontrado"),
+			@ApiResponse(code = 505, message = "Exceção interna da aplicação"), })
 	public ResponseEntity<PedidoDTO> updatePedido(@RequestBody PedidoDTO novoPedido) throws PedidoNotFoundException{
 		return ResponseEntity.ok(pedidoService.update(novoPedido));
 	}
 	
 	@DeleteMapping
-	@ApiOperation(value="Remoção de cliente")
+	@ApiOperation(value="Remoção de cliente por ID")
     @ApiResponses(value= {
-    @ApiResponse(code=200, message="Retorna cliente atualizado"),
-    @ApiResponse(code=401, message="Erro de autenticação"),
-    @ApiResponse(code=403, message="Não há permissão para acessar o recurso"),
-    @ApiResponse(code=404, message="Recurso não encontrado"),
-    @ApiResponse(code=505, message="Exceção interna da aplicação"),
-    })	
+    		@ApiResponse(code = 204, message = "Cliente específico removido"),
+			@ApiResponse(code = 401, message = "Erro de autenticação"),
+			@ApiResponse(code = 403, message = "Não há permissão para acessar o recurso"),
+			@ApiResponse(code = 404, message = "Recurso não encontrado"),
+			@ApiResponse(code = 505, message = "Exceção interna da aplicação"), })
 	public ResponseEntity<Void> deletePedido(@PathVariable Long id) throws PedidoNotFoundException{
 		pedidoService.delete(id);
 		return ResponseEntity.noContent().build();
