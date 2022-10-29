@@ -18,8 +18,7 @@ public class SwaggerConfig {
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
-				.apis(RequestHandlerSelectors
-				.any())
+				.apis(RequestHandlerSelectors.basePackage("org.serratec.ecommerce.api"))
 				.paths(PathSelectors.any()) // Quais são os paths que você quer fazer a documentação
 				.build()
 				.apiInfo(apiInfo());
@@ -28,12 +27,12 @@ public class SwaggerConfig {
 
 	private ApiInfo apiInfo() {
 		ApiInfo apiInfo = new ApiInfoBuilder()
-				.title("API de Teste")
-				.description("Essa é uma API desenvolvida para tests")
+				.title("API REST IN PEACE")
+				.description("API para um sistema de ecommerce desenvolvida por alunos da turma 08(02.2022) do Serratec. Projeto realizado para aprovação na matéria de API Restful.")
 				.license("Apache License Version 2.0")
 				.licenseUrl("https://www.apache.org/license/LICENSE-2.0")
 				.version("1.0.0")
-				.contact(new Contact("Serratec", "www.serratec.org.br", "teste@gmail.com"))
+				.contact(new Contact("Serratec", "www.serratec.org.br", "amelhorturma4ever@gmail.com"))
 				.build();
 		return apiInfo;
 	}

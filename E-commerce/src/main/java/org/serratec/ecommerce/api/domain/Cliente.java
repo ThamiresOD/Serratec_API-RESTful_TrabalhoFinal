@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity
@@ -37,6 +39,7 @@ public class Cliente {
 	@Column(name = "cli_tx_email", length = 80, nullable = false, unique = true)
 	private String email;
 	
+	@CPF
 	@NotBlank(message = "Preencha o cpf")
 	@ApiModelProperty(value = "CPF do cliente")
 	@Column(name = "cli_tx_cpf", length = 11, nullable = false, unique = true)

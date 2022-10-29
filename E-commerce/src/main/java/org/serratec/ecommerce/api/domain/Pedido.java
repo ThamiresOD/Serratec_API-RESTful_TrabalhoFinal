@@ -5,8 +5,6 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import org.serratec.ecommerce.api.domain.dto.PedidoDTO;
+import org.serratec.ecommerce.api.domain.dto.PedidoInserirDTO;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -40,13 +41,6 @@ public class Pedido {
 	@Column(name = "ped_dt_data_envio")
 	private LocalDate dataEnvio;
 
-//	@NotBlank(message = "Preencha o status")
-//	@ApiModelProperty(value = "Status do pedido")
-//	@Column(name = "status", length = 1, nullable = false)
-//	private String status;
-
-	@Enumerated(EnumType.STRING)
-	@NotBlank(message = "Preencha o status")
 	@ApiModelProperty(value = "Status do pedido")
 	@Column(name = "ped_tx_status", length = 1, nullable = false)
 	private StatusPedido status = StatusPedido.CONFIRMADO;
@@ -57,7 +51,7 @@ public class Pedido {
 	private Double valorTotal;
 
 	@ManyToOne
-	@JoinColumn(name = "(cli_cd_id", nullable = false)
+	@JoinColumn(name = "cli_cd_id", nullable = false)
 	private Cliente cliente;
 
 	public Pedido() {
@@ -74,6 +68,25 @@ public class Pedido {
 		this.status = status;
 		this.valorTotal = valorTotal;
 		this.cliente = cliente;
+	}
+
+	public Pedido(PedidoDTO pedidoDTO, Double valorTotal) {
+		this.id = pedidoDTO.getIdPedido();
+		this.cliente = pedidoDTO.getCliente();
+		this.dataEntrega = pedidoDTO.getDataEntrega();
+		this.dataEnvio = pedidoDTO.getDataEnvio();
+		this.dataPedido = pedidoDTO.getDataPedido();
+		this.status = pedidoDTO.getStatus();
+		this.valorTotal = valorTotal;
+	}
+	public Pedido(PedidoInserirDTO novoPedido, Double valorTotal, Cliente cliente) {
+		this.dataPedido = novoPedido.getDataPedido();
+		this.dataEnvio = novoPedido.getDataEnvio();
+		this.dataEntrega = novoPedido.getDataEntrega();
+		this.status = novoPedido.getStatus();
+		this.cliente = cliente;
+		this.valorTotal = valorTotal;
+
 	}
 
 	public Long getId() {
