@@ -20,42 +20,37 @@ public class Categoria {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@ApiModelProperty(value = "Id da categoria")
-	@Column(name = "idCategoria")
-	private Long id;
+	@Column(name = "cat_cd_id")
+	private Long idCategoria;
 	
-//	@Size(max = 30)
 	@NotBlank(message = "Preencha o nome")
 	@ApiModelProperty(value = "Nome da categoria")
-	@Column(name = "nome", length = 30, nullable = false, unique = true)
+	@Column(name = "cat_tx_nome", length = 30, nullable = false, unique = true)
 	private String nome;
 	
-//	@Size(max = 200)
 	@NotBlank(message = "Preencha a descricao")
 	@ApiModelProperty(value = "Descricao da categoria")
-	@Column(name = "descricao", length = 200)
+	@Column(name = "cat_tx_descricao", length = 200)
 	private String descricao;
-	
 	
 	public Categoria() {
 		super();
 	}
 
-
-	public Categoria(Long id, @Size(max = 30) @NotNull String nome, @Size(max = 200) @NotNull String descricao) {
+	public Categoria(Long idCategoria, @Size(max = 30) @NotNull String nome, @Size(max = 200) @NotNull String descricao) {
 		super();
-		this.id = id;
+		this.idCategoria = idCategoria;
 		this.nome = nome;
 		this.descricao = descricao;
 	}
 
-
-	public Long getId() {
-		return id;
+	public Long getIdCategoria() {
+		return idCategoria;
 	}
 
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdCategoria(Long idCategoria) {
+		this.idCategoria = idCategoria;
 	}
 
 
@@ -81,7 +76,7 @@ public class Categoria {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(idCategoria);
 	}
 
 
@@ -94,7 +89,7 @@ public class Categoria {
 		if (getClass() != obj.getClass())
 			return false;
 		Categoria other = (Categoria) obj;
-		return Objects.equals(id, other.id);
+		return Objects.equals(idCategoria, other.idCategoria);
 	}
 	
 	

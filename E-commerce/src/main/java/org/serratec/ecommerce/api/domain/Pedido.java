@@ -14,6 +14,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.serratec.ecommerce.api.domain.dto.PedidoDTO;
+import org.serratec.ecommerce.api.domain.dto.PedidoInserirDTO;
+
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity
@@ -22,43 +25,41 @@ public class Pedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@ApiModelProperty(value = "ID do pedido")
-	@Column(name = "idPedido")
+	@Column(name = "ped_cd_id")
 	private Long id;
-	
+
 	@NotNull
 	@ApiModelProperty(value = "Data do pedido")
-	@Column(name = "dataPedido", nullable = false)
+	@Column(name = "ped_dt_data_pedido", nullable = false)
 	private LocalDate dataPedido;
-	
+
 	@ApiModelProperty(value = "Data de entrega do pedido")
-	@Column(name = "dataEntrega")
+	@Column(name = "ped_dt_data_entrega")
 	private LocalDate dataEntrega;
-	
+
 	@ApiModelProperty(value = "Data de envio do pedido")
-	@Column(name = "dataEnvio")
+	@Column(name = "ped_dt_data_envio")
 	private LocalDate dataEnvio;
-	
-	@NotBlank(message = "Preencha o status")
+
 	@ApiModelProperty(value = "Status do pedido")
-	@Column(name = "status", length = 1, nullable = false)
-	private String status;
-	
+	@Column(name = "ped_tx_status", length = 1, nullable = false)
+	private StatusPedido status = StatusPedido.CONFIRMADO;
+
 	@NotNull
 	@ApiModelProperty(value = "Valor total do pedido")
-	@Column(name = "valorTotal", nullable = false)
+	@Column(name = "ped_nm_valor_total", nullable = false)
 	private Double valorTotal;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "idCliente", nullable = false)
+	@JoinColumn(name = "cli_cd_id", nullable = false)
 	private Cliente cliente;
-	
+
 	public Pedido() {
 		super();
 	}
 
-	
 	public Pedido(Long id, @NotNull LocalDate dataPedido, LocalDate dataEntrega, LocalDate dataEnvio,
-			@NotBlank(message = "Preencha o status") String status, @NotNull Double valorTotal, Cliente cliente) {
+			@NotBlank(message = "Preencha o status") StatusPedido status, @NotNull Double valorTotal, Cliente cliente) {
 		super();
 		this.id = id;
 		this.dataPedido = dataPedido;
@@ -69,6 +70,24 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
+	public Pedido(PedidoDTO pedidoDTO, Double valorTotal) {
+		this.id = pedidoDTO.getIdPedido();
+		this.cliente = pedidoDTO.getCliente();
+		this.dataEntrega = pedidoDTO.getDataEntrega();
+		this.dataEnvio = pedidoDTO.getDataEnvio();
+		this.dataPedido = pedidoDTO.getDataPedido();
+		this.status = pedidoDTO.getStatus();
+		this.valorTotal = valorTotal;
+	}
+	public Pedido(PedidoInserirDTO novoPedido, Double valorTotal, Cliente cliente) {
+		this.dataPedido = novoPedido.getDataPedido();
+		this.dataEnvio = novoPedido.getDataEnvio();
+		this.dataEntrega = novoPedido.getDataEntrega();
+		this.status = novoPedido.getStatus();
+		this.cliente = cliente;
+		this.valorTotal = valorTotal;
+
+	}
 
 	public Long getId() {
 		return id;
@@ -86,6 +105,14 @@ public class Pedido {
 		this.dataPedido = dataPedido;
 	}
 
+	public LocalDate getDataEntrega() {
+		return dataEntrega;
+	}
+
+	public void setDataEntrega(LocalDate dataEntrega) {
+		this.dataEntrega = dataEntrega;
+	}
+
 	public LocalDate getDataEnvio() {
 		return dataEnvio;
 	}
@@ -94,11 +121,11 @@ public class Pedido {
 		this.dataEnvio = dataEnvio;
 	}
 
-	public String getStatus() {
+	public StatusPedido getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(StatusPedido status) {
 		this.status = status;
 	}
 
@@ -110,15 +137,6 @@ public class Pedido {
 		this.valorTotal = valorTotal;
 	}
 
-	public LocalDate getDataEntrega() {
-		return dataEntrega;
-	}
-
-	public void setDataEntrega(LocalDate dataEntrega) {
-		this.dataEntrega = dataEntrega;
-	}
-
-	
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -126,7 +144,6 @@ public class Pedido {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -144,7 +161,5 @@ public class Pedido {
 		Pedido other = (Pedido) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
-	
+
 }

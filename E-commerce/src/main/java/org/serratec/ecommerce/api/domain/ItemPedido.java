@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,48 +13,51 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.serratec.ecommerce.api.domain.dto.ItemDTO;
+import org.serratec.ecommerce.api.domain.dto.ItemInserirDTO;
+
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity
-@Table(name = "itemPedido")
+@Table(name = "pedido_item")
 public class ItemPedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@ApiModelProperty(value = "Id do item pedido")
-	@Column(name = "idItemPedido")
+	@Column(name = "pdt_cd_id")
 	private Long id;
-	
+
 	@NotNull
 	@ApiModelProperty(value = "Quantidade do item pedido")
-	@Column(name = "quantidade", nullable = false)
+	@Column(name = "pdt_int_quantidade", nullable = false)
 	private Integer quantidade;
-	
+
 	@NotNull
 	@ApiModelProperty(value = "Preco de venda do item pedido")
-	@Column(name = "precoVenda", nullable = false)
+	@Column(name = "pdt_nm_preco_venda", nullable = false)
 	private Double precoVenda;
-	
+
 	@NotNull
 	@ApiModelProperty(value = "Percentual do desconto do item pedido")
-	@Column(name = "percentualDesconto", nullable = false)
+	@Column(name = "pdt_nm_percentual_desconto", nullable = false)
 	private Double percentualDesconto;
-	
+
 	@NotNull
 	@ApiModelProperty(value = "Valor bruto do produto")
-	@Column(name = "valorBruto", nullable = false)
+	@Column(name = "pdt_nm_valor_bruto", nullable = false)
 	private Double valorBruto;
-	
+
 	@NotNull
 	@ApiModelProperty(value = "Valor liquido do produto")
-	@Column(name = "valorLiquido", nullable = false)
+	@Column(name = "pdt_nm_valor_liquido", nullable = false)
 	private Double valorLiquido;
-	
-	@ManyToOne
-	@JoinColumn(name = "idProduto", nullable = false)
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "prd_cd_id", nullable = false)
 	private Produto produto;
-	
-	@ManyToOne
-	@JoinColumn(name = "idPedido", nullable = false)
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ped_cd_id", nullable = false)
 	private Pedido pedido;
 
 	public ItemPedido() {
@@ -74,6 +78,27 @@ public class ItemPedido {
 		this.pedido = pedido;
 	}
 
+	public ItemPedido(ItemInserirDTO itemDTO, Double valorBruto, Double valorLiquido, Produto produto) {
+		this.quantidade = itemDTO.getQuantidade();
+		this.percentualDesconto = itemDTO.getPercentualDesconto();
+		this.produto = produto;
+		this.precoVenda = valorLiquido;
+		this.valorBruto = valorBruto;
+		this.valorLiquido = valorLiquido;
+
+	}
+
+	public ItemPedido(ItemDTO itemDTO, Pedido pedido) {
+		this.id = itemDTO.getIdItem();
+		this.quantidade = itemDTO.getQuantidade();
+		this.percentualDesconto = itemDTO.getPercentualDesconto();
+		this.produto = itemDTO.getProduto();
+		this.valorBruto = itemDTO.getValorBruto();
+		this.valorLiquido = itemDTO.getValorLiquido();
+		this.precoVenda = itemDTO.getPrecoVenda();
+		this.pedido = pedido;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -154,7 +179,5 @@ public class ItemPedido {
 		ItemPedido other = (ItemPedido) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
-	
+
 }
