@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import org.serratec.ecommerce.api.domain.Categoria;
 import org.serratec.ecommerce.api.domain.Produto;
 
-
 public class ProdutoDTO {
 	private Long idProduto;
 	private String nomeProduto;
